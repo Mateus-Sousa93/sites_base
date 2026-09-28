@@ -119,7 +119,7 @@ const specialties: Specialty[] = [
 
 export const site = {
   name: "Clínica Pulso",
-  url: "https://clinica-pulso.vercel.app",
+  url: "https://pulso.estudioconceito.com",
   demo: true,
 
   whatsapp: {

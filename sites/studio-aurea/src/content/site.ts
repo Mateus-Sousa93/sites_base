@@ -100,7 +100,7 @@ export const site = {
   name: "Studio Áurea Estética",
   shortName: "Studio Áurea",
   descriptor: "estética",
-  url: "https://studio-aurea.vercel.app",
+  url: "https://aurea.estudioconceito.com",
   demo: true,
 
   whatsapp: {

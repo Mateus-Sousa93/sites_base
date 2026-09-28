@@ -42,7 +42,7 @@ export type OpeningHours = {
 
 export const site = {
   name: "Pedal Forte",
-  url: "https://pedal-forte.vercel.app",
+  url: "https://pedal.estudioconceito.com",
   demo: true,
   pixDiscount: 0.05,
   installments: 12,

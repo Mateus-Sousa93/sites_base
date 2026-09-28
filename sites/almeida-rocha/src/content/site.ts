@@ -29,7 +29,7 @@ export type OpeningHours = {
 export const site = {
   name: "Almeida & Rocha Contabilidade",
   shortName: "Almeida & Rocha",
-  url: "https://almeida-rocha.vercel.app",
+  url: "https://almeida.estudioconceito.com",
   demo: true,
 
   whatsapp: {
