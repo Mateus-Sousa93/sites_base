@@ -1,0 +1,41 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  white-space: nowrap;
+  color: var(--pine);
+}
+
+.light {
+  color: var(--white);
+}
+
+.mark {
+  width: 36px;
+  height: 36px;
+  color: var(--white);
+}
+
+.tile {
+  fill: var(--pine);
+}
+
+.light .mark {
+  color: var(--pine);
+}
+
+.light .tile {
+  fill: var(--white);
+}
+
+.word {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.word em {
+  font-style: italic;
+}

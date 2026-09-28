@@ -7,7 +7,7 @@ como um projeto separado na Vercel.
 | Site | Pasta | Estado |
 |---|---|---|
 | Studio Áurea Estética | `sites/studio-aurea` | pronto |
-| Dr. Marcos Vieira Cardiologia | — | mockup |
+| Clínica Pulso (clínica médica) | `sites/clinica-pulso` | pronto |
 | Almeida & Rocha Contabilidade | — | mockup |
 | Pedal Forte (bikes e elétricas) | `sites/pedal-forte` | pronto |
 

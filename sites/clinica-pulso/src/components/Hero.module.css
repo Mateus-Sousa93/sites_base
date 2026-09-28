@@ -1,0 +1,260 @@
+.hero {
+  padding-block: clamp(20px, 3svh, 40px);
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+  gap: clamp(24px, 4vw, 64px);
+  width: 100%;
+  max-width: calc(var(--max) + var(--gutter) * 2);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title {
+  font-size: clamp(3rem, min(6vw, 10.5svh), 6rem);
+  font-variation-settings: "opsz" 72;
+  line-height: 0.98;
+  color: var(--pine);
+  animation: enter 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+.lead {
+  max-width: 40ch;
+  margin-top: clamp(16px, 3svh, 28px);
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  color: var(--muted);
+}
+
+.trust {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(24px, 5svh, 56px);
+  border-top: 1px solid var(--rule);
+}
+
+.trust > div {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  gap: 2px;
+  padding: 16px 16px 0 0;
+}
+
+.trust > div + div {
+  padding-left: 16px;
+  border-left: 1px solid var(--rule);
+}
+
+.trust dd {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  line-height: 1;
+  color: var(--pine);
+}
+
+.trust dt {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+  color: var(--muted);
+}
+
+.media {
+  position: relative;
+  min-height: 0;
+}
+
+.videoWrap {
+  position: absolute;
+  inset: 0 0 0 10%;
+  overflow: hidden;
+  border-radius: 28px;
+  background: var(--pine);
+}
+
+.video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.toggle {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border: 0;
+  border-radius: 50%;
+  background: rgb(255 255 255 / 0.85);
+  color: var(--pine);
+  cursor: pointer;
+}
+
+.toggle svg {
+  width: 16px;
+  height: 16px;
+}
+
+.booking {
+  position: absolute;
+  left: 0;
+  bottom: clamp(20px, 5svh, 48px);
+  width: min(330px, 70%);
+  padding: 22px;
+  border-radius: 20px;
+  background: var(--white);
+  box-shadow: 0 30px 60px -28px rgb(14 44 38 / 0.45);
+  animation: enter 800ms 350ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+.bookingTitle {
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  line-height: 1.1;
+  color: var(--pine);
+}
+
+.selectLabel {
+  display: block;
+  margin-top: 12px;
+}
+
+.select {
+  width: 100%;
+  min-height: 46px;
+  padding: 0 40px 0 14px;
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2316433a' stroke-width='2'%3E%3Cpath d='m6 9 6 6 6-6'/%3E%3C/svg%3E")
+      right 12px center / 18px no-repeat,
+    var(--paper);
+  font: inherit;
+  font-weight: 600;
+  color: var(--ink);
+  appearance: none;
+  cursor: pointer;
+}
+
+.doctor {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: var(--muted);
+}
+
+.slots {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.slot {
+  display: grid;
+  justify-items: center;
+  gap: 0;
+  padding: 8px 4px;
+  border: 1.5px solid var(--rule);
+  border-radius: 10px;
+  background: var(--white);
+  cursor: pointer;
+  transition:
+    border-color 160ms ease,
+    background-color 160ms ease,
+    color 160ms ease;
+}
+
+.slot span {
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+
+.slot strong {
+  font-size: 1rem;
+}
+
+.slot:hover {
+  border-color: var(--pine);
+}
+
+.slot[aria-checked="true"] {
+  border-color: var(--pine);
+  background: var(--pine);
+  color: var(--white);
+}
+
+.slot[aria-checked="true"] span {
+  color: rgb(255 255 255 / 0.8);
+}
+
+.bookingCta {
+  width: 100%;
+  margin-top: 14px;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 899px) {
+  .hero {
+    padding-block: 20px 28px;
+  }
+
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    gap: 20px;
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 11vw, 3.5rem);
+  }
+
+  .trust {
+    display: none;
+  }
+
+  .media {
+    display: grid;
+  }
+
+  .videoWrap {
+    position: relative;
+    inset: auto;
+    height: 30svh;
+    border-radius: 20px;
+  }
+
+  .booking {
+    position: relative;
+    left: auto;
+    bottom: auto;
+    width: auto;
+    margin: -48px 12px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title,
+  .booking {
+    animation: none;
+  }
+}
