@@ -8,7 +8,7 @@ como um projeto separado na Vercel.
 |---|---|---|
 | Studio Áurea Estética | `sites/studio-aurea` | pronto |
 | Clínica Pulso (clínica médica) | `sites/clinica-pulso` | pronto |
-| Almeida & Rocha Contabilidade | — | mockup |
+| Almeida & Rocha Contabilidade | `sites/almeida-rocha` | pronto |
 | Pedal Forte (bikes e elétricas) | `sites/pedal-forte` | pronto |
 
 ## Rodar um site localmente

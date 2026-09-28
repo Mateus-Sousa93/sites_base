@@ -1,0 +1,57 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.light {
+  color: var(--white);
+}
+
+.mark {
+  display: grid;
+  place-items: center;
+  grid-auto-flow: column;
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--ink);
+  color: var(--white);
+  font-weight: 800;
+  font-size: 0.9375rem;
+  letter-spacing: -0.04em;
+}
+
+.mark span {
+  color: var(--amber);
+}
+
+.light .mark {
+  background: var(--amber);
+  color: var(--ink);
+}
+
+.light .mark span {
+  color: var(--ink);
+}
+
+.word {
+  display: grid;
+  font-weight: 800;
+  font-size: 1.1875rem;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+}
+
+.word small {
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  color: var(--muted);
+}
+
+.light .word small {
+  color: rgb(255 255 255 / 0.7);
+}
