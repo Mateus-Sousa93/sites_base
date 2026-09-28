@@ -107,7 +107,7 @@ export const site = {
     // Somente dígitos, com DDI e DDD.
     number: "5534992011427",
     display: "(34) 99201-1427",
-    greeting: "Olá, Studio Áurea! Gostaria de agendar uma avaliação.",
+    greeting: "Olá, Estúdio Conceito! Vi o site demonstrativo do Studio Áurea e quero saber mais sobre um projeto assim.",
   },
 
   instagram: {

@@ -104,7 +104,7 @@ export function TreatmentsShowcase() {
             </p>
             <a
               className="button"
-              href={whatsappUrl(`${site.whatsapp.greeting}\nTenho interesse em: ${current.name.toLowerCase()}.`)}
+              href={whatsappUrl()}
               target="_blank"
               rel="noopener noreferrer"
             >

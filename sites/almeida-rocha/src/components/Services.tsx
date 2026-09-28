@@ -38,7 +38,7 @@ export function Services() {
                     <p className={styles.detail}>{item.detail}</p>
                     <a
                       className={styles.link}
-                      href={whatsappUrl(`${site.whatsapp.greeting}\nQuero saber mais sobre: ${item.name.toLowerCase()}.`)}
+                      href={whatsappUrl()}
                       target="_blank"
                       rel="noopener noreferrer"
                     >

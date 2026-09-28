@@ -48,7 +48,7 @@ export function Categories() {
                 <span className={styles.detail}>{item.detail}</span>
                 <a
                   className={`text-link ${styles.link}`}
-                  href={whatsappUrl(`${site.whatsapp.greeting}\nQuero ver opções de ${item.name.toLowerCase()}.`)}
+                  href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                   tabIndex={open ? 0 : -1}

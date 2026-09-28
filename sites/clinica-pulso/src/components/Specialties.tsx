@@ -32,7 +32,7 @@ export function Specialties() {
                 <p className={styles.description}>{item.description}</p>
                 <a
                   className={styles.link}
-                  href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar uma consulta de ${item.name.toLowerCase()}.`)}
+                  href={whatsappUrl()}
                   target="_blank"
                   rel="noopener noreferrer"
                 >

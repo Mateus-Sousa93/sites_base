@@ -27,7 +27,7 @@ export function Workshop() {
           </ul>
           <a
             className={`button button--ghost ${styles.cta}`}
-            href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar uma revisão na oficina.`)}
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
           >

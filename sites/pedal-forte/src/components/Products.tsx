@@ -63,7 +63,7 @@ export function Products() {
                   </div>
                   <a
                     className={styles.buy}
-                    href={whatsappUrl(`${site.whatsapp.greeting}\nTenho interesse em: ${product.name} (${formatPrice(product.price)}).`)}
+                    href={whatsappUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`Comprar ${product.name} pelo WhatsApp (abre em nova aba)`}

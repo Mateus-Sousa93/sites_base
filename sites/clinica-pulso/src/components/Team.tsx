@@ -42,7 +42,7 @@ export function Team() {
                   </p>
                   <a
                     className={styles.link}
-                    href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar com ${d.name} (${d.specialty.toLowerCase()}).`)}
+                    href={whatsappUrl()}
                     target="_blank"
                     rel="noopener noreferrer"
                   >

@@ -64,7 +64,7 @@ export function Exams() {
           </ul>
           <a
             className="button"
-            href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar um exame.`)}
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
           >

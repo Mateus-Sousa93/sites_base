@@ -36,7 +36,7 @@ export const site = {
     // Somente dígitos, com DDI e DDD.
     number: "5534992011427",
     display: "(34) 99201-1427",
-    greeting: "Olá, Almeida & Rocha! Vim pelo site.",
+    greeting: "Olá, Estúdio Conceito! Vi o site demonstrativo da Almeida & Rocha e quero saber mais sobre um projeto assim.",
   },
 
   linkedin: "https://www.linkedin.com/company/almeida-rocha-contabilidade/",

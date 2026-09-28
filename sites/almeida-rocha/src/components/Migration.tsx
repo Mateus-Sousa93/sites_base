@@ -36,7 +36,7 @@ export function Migration() {
           </ol>
           <a
             className="button button--ink"
-            href={whatsappUrl(`${site.whatsapp.greeting}\nQuero trocar de contador.`)}
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
           >

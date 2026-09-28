@@ -26,7 +26,7 @@ export function Community() {
           </dl>
           <a
             className="button button--ghost"
-            href={whatsappUrl(`${site.whatsapp.greeting}\nQuero participar do próximo pedal de sábado.`)}
+            href={whatsappUrl()}
             target="_blank"
             rel="noopener noreferrer"
           >
