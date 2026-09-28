@@ -1,0 +1,138 @@
+.section {
+  justify-content: stretch;
+  background: var(--chalk);
+}
+
+.cta {
+  position: relative;
+  overflow: hidden;
+  flex: 1.1;
+  display: flex;
+  align-items: center;
+  min-height: 300px;
+  color: var(--white);
+  background: var(--asphalt);
+}
+
+.ctaBg {
+  object-fit: cover;
+}
+
+.ctaShade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(21 23 27 / 0.85) 0%, rgb(21 23 27 / 0.5) 45%, rgb(21 23 27 / 0) 75%);
+}
+
+.ctaInner {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  justify-items: start;
+  gap: 20px;
+  padding-block: clamp(32px, 5svh, 56px);
+}
+
+.ctaTitle {
+  font-size: clamp(4rem, min(9vw, 13svh), 8.5rem);
+  line-height: 0.82;
+}
+
+.ctaSide p {
+  max-width: 40ch;
+  margin-bottom: 20px;
+  color: rgb(255 255 255 / 0.9);
+}
+
+.info {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr) minmax(0, 1.4fr);
+  min-height: 300px;
+}
+
+.store {
+  min-height: 100%;
+}
+
+.details {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: clamp(24px, 3svh, 40px) clamp(24px, 3vw, 48px);
+}
+
+.detailsTitle {
+  font-size: 2.5rem;
+}
+
+.address {
+  display: flex;
+  gap: 10px;
+  margin-top: 14px;
+  font-style: normal;
+  font-size: 0.9375rem;
+}
+
+.address svg {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+  color: var(--cobalt);
+}
+
+.hours {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px solid var(--rule);
+  font-size: 0.9375rem;
+}
+
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 1px;
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 16px;
+}
+
+.links a {
+  font-weight: 700;
+  text-decoration: underline;
+  text-decoration-color: var(--signal);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+}
+
+.map {
+  width: 100%;
+  height: 100%;
+  min-height: 300px;
+  border: 0;
+  filter: grayscale(1) contrast(1.05);
+}
+
+@media (max-width: 899px) {
+  .ctaTitle {
+    font-size: clamp(4rem, 20vw, 6rem);
+  }
+
+  .ctaSide :global(.button) {
+    width: 100%;
+  }
+
+  .info {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .store {
+    min-height: 240px;
+  }
+}

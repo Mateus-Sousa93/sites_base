@@ -1,0 +1,125 @@
+.section {
+  padding-block: clamp(32px, 6svh, 72px);
+  background: var(--asphalt);
+  color: var(--white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+
+.title {
+  font-size: clamp(3.5rem, min(8vw, 12svh), 8rem);
+}
+
+.text {
+  max-width: 44ch;
+  margin-top: clamp(12px, 2svh, 20px);
+  color: rgb(255 255 255 / 0.8);
+}
+
+.list {
+  margin-top: clamp(16px, 3svh, 32px);
+  border-top: 1px solid var(--rule-light);
+}
+
+.item {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: clamp(8px, 1.5svh, 16px);
+  border-bottom: 1px solid var(--rule-light);
+}
+
+.name {
+  font-weight: 700;
+}
+
+.detail {
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.65);
+}
+
+.price {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.75rem;
+  line-height: 1;
+  white-space: nowrap;
+  color: var(--signal);
+}
+
+.cta {
+  margin-top: clamp(18px, 3svh, 32px);
+}
+
+.media {
+  position: relative;
+  height: clamp(460px, calc(100svh - var(--header-h) - 14svh), 820px);
+}
+
+.photo {
+  position: absolute;
+  inset: 0 0 0 12%;
+  border-radius: 6px;
+}
+
+.detailPhoto {
+  position: absolute;
+  left: 0;
+  bottom: 8%;
+  width: 34%;
+  aspect-ratio: 1;
+  border: 6px solid var(--asphalt);
+  border-radius: 6px;
+}
+
+.badge {
+  position: absolute;
+  top: 6%;
+  right: -12px;
+  display: grid;
+  padding: 14px 18px;
+  border-radius: 4px;
+  background: var(--signal);
+  color: var(--asphalt);
+  font-weight: 700;
+  font-size: 0.875rem;
+  line-height: 1.2;
+  transform: rotate(-3deg);
+}
+
+.badge span {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 3rem;
+  line-height: 0.9;
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .media {
+    height: 420px;
+  }
+
+  .badge {
+    right: 8px;
+  }
+
+  .cta {
+    width: 100%;
+  }
+}
+
+@media (min-width: 900px) and (max-height: 820px) {
+  .detail {
+    display: none;
+  }
+}

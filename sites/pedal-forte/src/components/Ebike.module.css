@@ -1,0 +1,134 @@
+.section {
+  background: var(--cobalt);
+  color: var(--white);
+}
+
+.section :focus-visible {
+  outline-color: var(--white);
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.photo {
+  min-height: 100%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(24px, 4.5svh, 64px);
+  padding-left: clamp(32px, 5vw, 88px);
+  padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2));
+}
+
+.title {
+  font-size: clamp(3rem, min(5.6vw, 9svh), 6rem);
+}
+
+.title span {
+  display: block;
+}
+
+.text {
+  max-width: 44ch;
+  margin-top: clamp(16px, 2.6svh, 24px);
+  color: rgb(255 255 255 / 0.88);
+}
+
+.specs {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin-top: clamp(20px, 3.5svh, 36px);
+  border-top: 1px solid rgb(255 255 255 / 0.3);
+}
+
+.spec {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: flex-end;
+  padding: clamp(12px, 2svh, 18px) 16px clamp(12px, 2svh, 18px) 0;
+  border-bottom: 1px solid rgb(255 255 255 / 0.3);
+}
+
+.spec + .spec {
+  padding-left: 14px;
+  border-left: 1px solid rgb(255 255 255 / 0.3);
+}
+
+.spec dd {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.25rem, min(3.4vw, 5.6svh), 3.5rem);
+  line-height: 0.9;
+}
+
+.spec dd span {
+  margin-left: 4px;
+  font-size: 0.45em;
+}
+
+.spec dt {
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.8);
+}
+
+.buy {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-top: clamp(20px, 3.5svh, 36px);
+}
+
+.price {
+  display: grid;
+}
+
+.from {
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.8);
+}
+
+.value {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.5rem, min(3.6vw, 6svh), 3.75rem);
+  line-height: 0.95;
+}
+
+.terms {
+  font-size: 0.9375rem;
+  color: rgb(255 255 255 / 0.9);
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 44svh auto;
+  }
+
+  .body {
+    padding: 36px var(--gutter) 48px;
+  }
+
+  .buy :global(.button) {
+    width: 100%;
+  }
+}
+
+@media (max-width: 1180px) {
+  .specs {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .spec:nth-child(3) {
+    padding-left: 0;
+    border-left: 0;
+  }
+}

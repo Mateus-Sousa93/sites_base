@@ -1,0 +1,176 @@
+.section {
+  justify-content: flex-start;
+  padding-block: clamp(32px, 5svh, 64px);
+  background: var(--chalk);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 12px 40px;
+}
+
+.title {
+  font-size: clamp(3rem, 7vw, 6.5rem);
+}
+
+.intro {
+  max-width: 34ch;
+  color: var(--steel);
+}
+
+.panels {
+  flex: 1;
+  display: flex;
+  gap: 8px;
+  min-height: 340px;
+  margin-top: clamp(20px, 3.5svh, 36px);
+}
+
+.panel {
+  position: relative;
+  flex: 1 1 0;
+  min-width: 0;
+  overflow: hidden;
+  border-radius: 6px;
+  color: var(--white);
+  transition: flex-grow 600ms cubic-bezier(0.2, 0.8, 0.1, 1);
+}
+
+.open {
+  flex-grow: 4;
+}
+
+.photo {
+  position: absolute;
+  inset: 0;
+}
+
+.photo img {
+  transition: transform 1200ms cubic-bezier(0.2, 0.8, 0.1, 1);
+}
+
+.open .photo img {
+  transform: scale(1.04);
+}
+
+.panel::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(0deg, rgb(21 23 27 / 0.88) 0%, rgb(21 23 27 / 0.1) 55%);
+  pointer-events: none;
+}
+
+/* Botão cobre o painel fechado; o nome aparece na vertical. */
+.trigger {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 24px 0;
+  border: 0;
+  background: none;
+  color: var(--white);
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 1.75rem;
+  text-transform: uppercase;
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  cursor: pointer;
+  transition: opacity 250ms ease;
+}
+
+.open .trigger {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.label {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 3;
+  display: grid;
+  justify-items: start;
+  gap: 4px;
+  padding: clamp(20px, 2.6vw, 36px);
+  opacity: 0;
+  transform: translateY(16px);
+  transition:
+    opacity 300ms ease,
+    transform 400ms cubic-bezier(0.2, 0.8, 0.1, 1);
+  pointer-events: none;
+}
+
+.open .label {
+  opacity: 1;
+  transform: translateY(0);
+  transition-delay: 200ms;
+  pointer-events: auto;
+}
+
+.count {
+  padding: 4px 10px;
+  border-radius: 3px;
+  background: var(--cobalt);
+  font-size: 0.8125rem;
+  font-weight: 700;
+}
+
+.name {
+  margin-top: 8px;
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: clamp(2.75rem, 5vw, 4.5rem);
+  line-height: 0.9;
+  text-transform: uppercase;
+}
+
+.detail {
+  color: rgb(255 255 255 / 0.85);
+}
+
+.link {
+  margin-top: 14px;
+}
+
+@media (max-width: 899px) {
+  .panels {
+    flex-direction: column;
+    min-height: 0;
+  }
+
+  .panel,
+  .open {
+    flex: none;
+    height: 84px;
+    transition: height 500ms cubic-bezier(0.2, 0.8, 0.1, 1);
+  }
+
+  .open {
+    height: 420px;
+  }
+
+  .trigger {
+    writing-mode: horizontal-tb;
+    transform: none;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 0 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panel,
+  .photo img,
+  .label {
+    transition: none;
+  }
+}

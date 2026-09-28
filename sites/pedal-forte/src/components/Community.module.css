@@ -1,0 +1,101 @@
+.section {
+  overflow: hidden;
+  padding-block: clamp(40px, 6svh, 72px);
+  background: var(--asphalt);
+  color: var(--white);
+}
+
+.bg {
+  object-fit: cover;
+}
+
+.shade {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgb(21 23 27 / 0.88) 0%, rgb(21 23 27 / 0.55) 50%, rgb(21 23 27 / 0.35) 100%);
+}
+
+.grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 88px);
+  align-items: center;
+}
+
+.title {
+  font-size: clamp(3.5rem, min(8vw, 15svh), 8.5rem);
+}
+
+.text {
+  max-width: 42ch;
+  margin-top: clamp(14px, 2.4svh, 22px);
+  font-size: clamp(1.0625rem, 1.3vw, 1.25rem);
+  color: rgb(255 255 255 / 0.88);
+}
+
+.facts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 40px;
+  margin: clamp(20px, 3.5svh, 36px) 0;
+}
+
+.facts dt {
+  font-size: 0.8125rem;
+  color: rgb(255 255 255 / 0.7);
+}
+
+.facts dd {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: 2rem;
+  line-height: 1;
+  text-transform: uppercase;
+}
+
+.quotes {
+  display: grid;
+  gap: 12px;
+}
+
+.quote {
+  padding: clamp(16px, 2.4svh, 24px) 24px;
+  border-left: 4px solid var(--signal);
+  border-radius: 0 6px 6px 0;
+  background: rgb(21 23 27 / 0.6);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.stars {
+  color: var(--signal);
+  letter-spacing: 0.15em;
+  font-size: 0.875rem;
+}
+
+.quote blockquote p {
+  margin-top: 6px;
+  font-size: 1rem;
+  line-height: 1.5;
+}
+
+.quote figcaption {
+  margin-top: 8px;
+  font-size: 0.875rem;
+  color: rgb(255 255 255 / 0.75);
+}
+
+.quote figcaption strong {
+  color: var(--white);
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .body :global(.button) {
+    width: 100%;
+  }
+}

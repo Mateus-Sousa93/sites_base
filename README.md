@@ -9,7 +9,7 @@ como um projeto separado na Vercel.
 | Studio Áurea Estética | `sites/studio-aurea` | pronto |
 | Dr. Marcos Vieira Cardiologia | — | mockup |
 | Almeida & Rocha Contabilidade | — | mockup |
-| Pedal Forte | — | mockup |
+| Pedal Forte (bikes e elétricas) | `sites/pedal-forte` | pronto |
 
 ## Rodar um site localmente
 
@@ -29,9 +29,10 @@ pnpm dev
    em cada projeto **Settings → Git → Ignored Build Step** com
    `git diff --quiet HEAD^ HEAD -- .`.
 
-## Conteúdo sem fotos
+## Mídias
 
-Os sites não usam fotos de banco de imagem: cada empresa tem a própria equipe e o
-próprio espaço, e foto genérica passa a impressão de falsa. O layout é resolvido
-com tipografia, cor e elementos úteis, como a ficha de avaliação do Studio Áurea.
-Fotos reais do cliente podem entrar depois, sem mudar a estrutura.
+Cada seção ocupa uma tela inteira no desktop e sempre tem uma âncora visual forte.
+As fotos e vídeos de demonstração vêm de bancos com licença comercial (Unsplash e
+Pexels) e evitam rostos de "equipe" ou "clientes" falsos: mostram ambiente,
+produto e ação. Cada site lista a origem das mídias no próprio README, e as fotos
+reais do cliente entram depois sem mudar a estrutura.
