@@ -123,9 +123,9 @@ export const site = {
   demo: true,
 
   whatsapp: {
-    // Somente dígitos, com DDI e DDD. Número de demonstração: troque pelo real.
-    number: "5534932261234",
-    display: "(34) 3226-1234",
+    // Somente dígitos, com DDI e DDD.
+    number: "5534992011427",
+    display: "(34) 99201-1427",
     greeting: "Olá, Clínica Pulso! Vim pelo site.",
   },
 

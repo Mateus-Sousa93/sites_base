@@ -33,9 +33,9 @@ export const site = {
   demo: true,
 
   whatsapp: {
-    // Somente dígitos, com DDI e DDD. Número de demonstração: troque pelo real.
-    number: "5516991234567",
-    display: "(16) 99123-4567",
+    // Somente dígitos, com DDI e DDD.
+    number: "5534992011427",
+    display: "(34) 99201-1427",
     greeting: "Olá, Almeida & Rocha! Vim pelo site.",
   },
 

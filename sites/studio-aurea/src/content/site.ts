@@ -104,9 +104,9 @@ export const site = {
   demo: true,
 
   whatsapp: {
-    // Somente dígitos, com DDI e DDD. Número de demonstração: troque pelo real.
-    number: "5534996123456",
-    display: "(34) 99612-3456",
+    // Somente dígitos, com DDI e DDD.
+    number: "5534992011427",
+    display: "(34) 99201-1427",
     greeting: "Olá, Studio Áurea! Gostaria de agendar uma avaliação.",
   },
 
