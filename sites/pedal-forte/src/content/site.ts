@@ -48,9 +48,9 @@ export const site = {
   installments: 12,
 
   whatsapp: {
-    // Somente dígitos, com DDI e DDD. Número de demonstração: troque pelo real.
-    number: "5531991481148",
-    display: "(31) 99148-1148",
+    // Somente dígitos, com DDI e DDD.
+    number: "5534992011427",
+    display: "(34) 99201-1427",
     greeting: "Olá, Pedal Forte! Vim pelo site.",
   },
 
