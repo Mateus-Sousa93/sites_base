@@ -1,0 +1,252 @@
+.section {
+  padding-block: clamp(40px, 6svh, 72px);
+  background: var(--white);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+  column-gap: clamp(32px, 5vw, 96px);
+  align-items: center;
+}
+
+.title {
+  font-size: clamp(3rem, 5.6vw, 5.5rem);
+  font-variation-settings: "opsz" 96;
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  margin-top: 16px;
+  color: var(--olive-ink);
+}
+
+.tabs {
+  margin-top: clamp(24px, 4svh, 44px);
+  border-top: 1px solid var(--rule-strong);
+}
+
+.tab {
+  position: relative;
+  display: flex;
+  width: 100%;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+  padding: clamp(14px, 2.4svh, 24px) 0 clamp(14px, 2.4svh, 24px) 0;
+  border: 0;
+  border-bottom: 1px solid var(--rule);
+  background: none;
+  text-align: left;
+  cursor: pointer;
+  color: var(--olive-ink);
+  transition:
+    color 200ms ease,
+    padding-left 280ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.tab::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 0;
+  height: 1px;
+  background: var(--plum);
+  transition: width 280ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.tab:hover {
+  color: var(--plum);
+}
+
+.tab[aria-selected="true"] {
+  color: var(--plum);
+  padding-left: 40px;
+}
+
+.tab[aria-selected="true"]::before {
+  width: 24px;
+}
+
+.tabName {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 2.4vw, 2.375rem);
+  font-variation-settings: "opsz" 48;
+  line-height: 1.1;
+}
+
+.tabMeta {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 18px;
+  white-space: nowrap;
+}
+
+.tabMinutes {
+  font-size: 0.875rem;
+}
+
+.tabPrice {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 1.7vw, 1.625rem);
+  font-variant-numeric: lining-nums;
+}
+
+.panel {
+  position: relative;
+  height: clamp(520px, calc(100svh - var(--header-h) - 12svh), 860px);
+}
+
+.photos {
+  position: absolute;
+  inset: 0;
+}
+
+.photos img {
+  transition:
+    opacity 700ms ease,
+    transform 1400ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.visible {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.hidden {
+  opacity: 0;
+  transform: scale(1.06);
+}
+
+.details {
+  position: absolute;
+  left: clamp(20px, 3vw, 40px);
+  bottom: clamp(20px, 3vw, 40px);
+  width: min(430px, calc(100% - 40px));
+  padding: clamp(22px, 2.4vw, 32px);
+  background: rgb(255 255 255 / 0.94);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  animation: enter 500ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+.detailsName {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.4vw, 2.25rem);
+  font-variation-settings: "opsz" 48;
+  line-height: 1.05;
+}
+
+.detailsMeta {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  color: var(--olive-ink);
+}
+
+.detailsText {
+  margin-top: 14px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+}
+
+.detailsIndication {
+  margin-top: 10px;
+  margin-bottom: 20px;
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--olive-ink);
+}
+
+.detailsIndication strong {
+  color: var(--plum);
+  font-weight: 600;
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 24px;
+  }
+
+  .tabs {
+    display: flex;
+    gap: 8px;
+    overflow-x: auto;
+    margin-inline: calc(var(--gutter) * -1);
+    padding: 4px var(--gutter);
+    border-top: 0;
+    scrollbar-width: none;
+  }
+
+  .tabs::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: none;
+    width: auto;
+    padding: 10px 16px;
+    border: 1px solid var(--rule-strong);
+    border-radius: 999px;
+  }
+
+  .tab::before,
+  .tabMeta {
+    display: none;
+  }
+
+  .tab[aria-selected="true"] {
+    padding-left: 16px;
+    background: var(--plum);
+    border-color: var(--plum);
+    color: var(--porcelain);
+  }
+
+  .tabName {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    font-weight: 600;
+  }
+
+  .panel {
+    height: auto;
+  }
+
+  .photos {
+    position: relative;
+    aspect-ratio: 4 / 3;
+  }
+
+  .details {
+    position: static;
+    width: auto;
+    padding: 20px 0 0;
+    background: none;
+    backdrop-filter: none;
+  }
+
+  .details :global(.button) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .photos img,
+  .details {
+    transition: none;
+    animation: none;
+  }
+}

@@ -5,6 +5,7 @@ import styles from "./SiteHeader.module.css";
 
 const links = [
   { href: "#tratamentos", label: "Tratamentos" },
+  { href: "#descubra", label: "Qual é o seu?" },
   { href: "#studio", label: "O studio" },
   { href: "#depoimentos", label: "Depoimentos" },
   { href: "#visite", label: "Como chegar" },

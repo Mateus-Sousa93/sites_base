@@ -1,0 +1,257 @@
+.section {
+  background: var(--plum);
+  color: var(--porcelain);
+}
+
+.section :focus-visible {
+  outline-color: var(--rose);
+}
+
+.grid {
+  flex: 1;
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+.photo {
+  min-height: 100%;
+}
+
+.body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding-block: clamp(40px, 7svh, 88px);
+  padding-left: clamp(40px, 6vw, 112px);
+  padding-right: max(var(--gutter), calc((100vw - var(--max)) / 2));
+}
+
+.title {
+  max-width: 16ch;
+  font-size: clamp(2.5rem, 4.4vw, 4.25rem);
+  font-variation-settings: "opsz" 96;
+  line-height: 1;
+  letter-spacing: -0.02em;
+}
+
+.intro {
+  max-width: 46ch;
+  margin-top: 16px;
+  color: rgb(242 236 232 / 0.8);
+}
+
+.progress {
+  height: 2px;
+  margin-top: clamp(28px, 5svh, 48px);
+  background: rgb(242 236 232 / 0.18);
+}
+
+.progress span {
+  display: block;
+  height: 100%;
+  background: var(--rose);
+  transition: width 400ms cubic-bezier(0.2, 0.7, 0.1, 1);
+}
+
+.stage {
+  min-height: clamp(260px, 36svh, 340px);
+  padding-top: clamp(24px, 4svh, 40px);
+}
+
+.question {
+  animation: enter 450ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+.counter {
+  font-size: 0.875rem;
+  color: var(--rose-soft);
+}
+
+.questionTitle {
+  margin-top: 6px;
+  font-size: clamp(1.75rem, 2.6vw, 2.5rem);
+  font-variation-settings: "opsz" 48;
+  line-height: 1.1;
+}
+
+.questionTitle:focus {
+  outline: none;
+}
+
+.hint {
+  margin-top: 6px;
+  font-size: 0.9375rem;
+  color: rgb(242 236 232 / 0.7);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 22px;
+}
+
+.option {
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid rgb(242 236 232 / 0.45);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--porcelain);
+  font-size: 1rem;
+  cursor: pointer;
+  transition:
+    background-color 180ms ease,
+    border-color 180ms ease,
+    color 180ms ease;
+}
+
+.option:hover {
+  border-color: var(--porcelain);
+  background: rgb(242 236 232 / 0.08);
+}
+
+.option[aria-pressed="true"] {
+  background: var(--porcelain);
+  border-color: var(--porcelain);
+  color: var(--plum);
+}
+
+.next {
+  margin-top: 24px;
+}
+
+.next:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-top: 22px;
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: rgb(242 236 232 / 0.75);
+  font-size: 0.9375rem;
+  cursor: pointer;
+}
+
+.back svg {
+  width: 18px;
+  height: 18px;
+}
+
+.back:hover {
+  color: var(--porcelain);
+}
+
+.resultName {
+  margin-top: 4px;
+  font-size: clamp(2.5rem, 4.4vw, 4rem);
+  font-variation-settings: "opsz" 96;
+  line-height: 1;
+  color: var(--rose-soft);
+}
+
+.resultName:focus {
+  outline: none;
+}
+
+.resultMeta {
+  margin-top: 10px;
+  font-size: 0.9375rem;
+  color: rgb(242 236 232 / 0.75);
+}
+
+.resultText {
+  max-width: 50ch;
+  margin-top: 14px;
+}
+
+.resultActions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+  margin-top: 26px;
+}
+
+.restart {
+  padding: 8px 0;
+  border: 0;
+  background: none;
+  color: var(--porcelain);
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 5px;
+  text-decoration-color: var(--rose);
+  cursor: pointer;
+}
+
+.disclaimer {
+  margin-top: 20px;
+  font-size: 0.8125rem;
+  color: rgb(242 236 232 / 0.65);
+}
+
+@keyframes enter {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 899px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 22svh auto;
+  }
+
+  .body {
+    padding: 28px var(--gutter) 36px;
+  }
+
+  .title {
+    font-size: clamp(2rem, 8.6vw, 2.75rem);
+  }
+
+  .intro {
+    font-size: 0.9375rem;
+  }
+
+  .progress {
+    margin-top: 20px;
+  }
+
+  .stage {
+    min-height: 0;
+    padding-top: 20px;
+  }
+
+  .option {
+    min-height: 44px;
+    padding: 0 16px;
+    font-size: 0.9375rem;
+  }
+
+  .resultActions :global(.button) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .question {
+    animation: none;
+  }
+
+  .progress span {
+    transition: none;
+  }
+}
