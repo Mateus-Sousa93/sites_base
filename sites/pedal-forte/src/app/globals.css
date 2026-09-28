@@ -216,13 +216,33 @@ button {
   flex: none;
 }
 
-.button--signal {
+.button--whatsapp {
   background: var(--whatsapp);
   color: var(--asphalt);
 }
 
-.button--signal:hover {
+.button--whatsapp:hover {
   background: var(--white);
+}
+
+.text-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding-block: 6px;
+  border-bottom: 2px solid var(--signal);
+  font-weight: 700;
+  text-decoration: none;
+  transition: gap 160ms ease;
+}
+
+.text-link:hover {
+  gap: 12px;
+}
+
+.text-link svg {
+  width: 18px;
+  height: 18px;
 }
 
 .button--ghost {

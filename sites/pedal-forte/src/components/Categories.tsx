@@ -4,6 +4,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/format";
+import { ArrowIcon } from "./icons";
 import styles from "./Categories.module.css";
 
 export function Categories() {
@@ -46,13 +47,14 @@ export function Categories() {
                 <span className={styles.name}>{item.name}</span>
                 <span className={styles.detail}>{item.detail}</span>
                 <a
-                  className={`button button--signal ${styles.link}`}
+                  className={`text-link ${styles.link}`}
                   href={whatsappUrl(`${site.whatsapp.greeting}\nQuero ver opções de ${item.name.toLowerCase()}.`)}
                   target="_blank"
                   rel="noopener noreferrer"
                   tabIndex={open ? 0 : -1}
                 >
                   Ver modelos
+                  <ArrowIcon />
                   <span className="visually-hidden"> de {item.name} no WhatsApp (abre em nova aba)</span>
                 </a>
               </div>

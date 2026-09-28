@@ -21,7 +21,7 @@ export function Visit() {
           </h2>
           <div className={styles.ctaSide}>
             <p>{text}</p>
-            <a className="button button--signal" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
+            <a className="button button--whatsapp" href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
               <WhatsAppIcon />
               Chamar no WhatsApp
               <span className="visually-hidden"> (abre em nova aba)</span>

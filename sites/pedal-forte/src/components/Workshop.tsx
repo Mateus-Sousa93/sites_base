@@ -1,7 +1,6 @@
 import Image from "next/image";
 import { site } from "@/content/site";
 import { formatPrice, whatsappUrl } from "@/lib/format";
-import { WhatsAppIcon } from "./icons";
 import styles from "./Workshop.module.css";
 
 export function Workshop() {
@@ -27,12 +26,11 @@ export function Workshop() {
             ))}
           </ul>
           <a
-            className={`button button--signal ${styles.cta}`}
+            className={`button button--ghost ${styles.cta}`}
             href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar uma revisão na oficina.`)}
             target="_blank"
             rel="noopener noreferrer"
           >
-            <WhatsAppIcon />
             {cta}
             <span className="visually-hidden"> pelo WhatsApp (abre em nova aba)</span>
           </a>

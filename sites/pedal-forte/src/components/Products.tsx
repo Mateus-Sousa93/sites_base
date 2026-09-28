@@ -4,7 +4,6 @@ import Image from "next/image";
 import { useState } from "react";
 import { site } from "@/content/site";
 import { formatPrice, installment, pixPrice, whatsappUrl } from "@/lib/format";
-import { WhatsAppIcon } from "./icons";
 import styles from "./Products.module.css";
 
 type FilterId = (typeof site.products.filters)[number]["id"];
@@ -69,7 +68,6 @@ export function Products() {
                     rel="noopener noreferrer"
                     aria-label={`Comprar ${product.name} pelo WhatsApp (abre em nova aba)`}
                   >
-                    <WhatsAppIcon />
                     Comprar
                   </a>
                 </div>

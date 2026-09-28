@@ -41,7 +41,7 @@ export function Ebike() {
               </span>
             </div>
             <a
-              className="button button--signal"
+              className="button button--ghost"
               href={whatsappUrl(`${site.whatsapp.greeting}\nQuero agendar um test ride de bike elétrica.`)}
               target="_blank"
               rel="noopener noreferrer"

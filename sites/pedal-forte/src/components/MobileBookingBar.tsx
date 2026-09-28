@@ -35,7 +35,7 @@ export function MobileBookingBar() {
   return (
     <div className={`${styles.bar} ${visible ? styles.visible : ""}`} aria-hidden={!visible}>
       <a
-        className="button button--signal"
+        className="button button--whatsapp"
         href={whatsappUrl()}
         target="_blank"
         rel="noopener noreferrer"
