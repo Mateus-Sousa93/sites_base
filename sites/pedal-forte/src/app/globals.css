@@ -7,6 +7,7 @@
   --cobalt: #1f4bff;
   --cobalt-deep: #1233c7;
   --signal: #ff5b1f;
+  --whatsapp: #25d366;
   --steel: #5d626b;
   --rule: rgb(21 23 27 / 0.14);
   --rule-light: rgb(242 241 236 / 0.2);
@@ -216,7 +217,7 @@ button {
 }
 
 .button--signal {
-  background: var(--signal);
+  background: var(--whatsapp);
   color: var(--asphalt);
 }
 

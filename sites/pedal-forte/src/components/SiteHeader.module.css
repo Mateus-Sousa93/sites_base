@@ -40,6 +40,12 @@
   border-color: var(--signal);
 }
 
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
 .cta {
   display: inline-flex;
   align-items: center;
@@ -47,7 +53,7 @@
   min-height: 42px;
   padding: 0 18px;
   border-radius: 4px;
-  background: var(--signal);
+  background: var(--whatsapp);
   color: var(--asphalt);
   font-weight: 700;
   font-size: 0.9375rem;
@@ -64,8 +70,74 @@
   height: 18px;
 }
 
+.toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.toggle svg {
+  width: 24px;
+  height: 24px;
+}
+
+.mobileNav {
+  display: none;
+}
+
 @media (max-width: 960px) {
   .nav {
     display: none;
+  }
+
+  .toggle {
+    display: inline-flex;
+  }
+
+  .mobileNav {
+    display: block;
+    max-height: 0;
+    overflow: hidden;
+    background: var(--asphalt);
+    border-top: 1px solid var(--rule-light);
+    transition: max-height 220ms ease;
+  }
+
+  .mobileNavOpen {
+    max-height: 70vh;
+    overflow-y: auto;
+  }
+
+  .mobileNav ul {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .mobileNav a {
+    display: block;
+    padding: 16px var(--gutter);
+    font-size: 1.0625rem;
+    font-weight: 700;
+    text-decoration: none;
+    color: rgb(255 255 255 / 0.9);
+    border-bottom: 1px solid var(--rule-light);
+  }
+
+  .mobileNav li:last-child a {
+    border-bottom: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mobileNav {
+    transition: none;
   }
 }
