@@ -1,0 +1,44 @@
+.logo {
+  display: inline-flex;
+  white-space: nowrap;
+  align-items: baseline;
+  gap: 10px;
+  color: var(--plum);
+  line-height: 1;
+}
+
+.onDark {
+  color: var(--porcelain);
+}
+
+.name {
+  font-family: var(--font-display);
+  font-size: 1.625rem;
+  font-variation-settings: "opsz" 28;
+  letter-spacing: -0.005em;
+}
+
+.descriptor {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.125rem;
+  color: var(--rose);
+}
+
+.onDark .descriptor {
+  color: var(--rose-soft);
+}
+
+@media (max-width: 400px) {
+  .logo {
+    gap: 7px;
+  }
+
+  .name {
+    font-size: 1.375rem;
+  }
+
+  .descriptor {
+    font-size: 1rem;
+  }
+}

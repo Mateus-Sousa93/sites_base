@@ -1,0 +1,32 @@
+.section {
+  background: var(--plum);
+  color: var(--porcelain);
+  padding-block: clamp(72px, 9vw, 136px);
+}
+
+.inner {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr);
+  column-gap: clamp(32px, 6vw, 112px);
+  row-gap: 32px;
+  align-items: end;
+}
+
+.title {
+  font-size: clamp(2.75rem, 6vw, 5.75rem);
+  font-variation-settings: "opsz" 96;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+}
+
+.text {
+  max-width: 34ch;
+  margin-bottom: 28px;
+  color: rgb(242 236 232 / 0.86);
+}
+
+@media (max-width: 880px) {
+  .inner {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

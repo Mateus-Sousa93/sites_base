@@ -1,0 +1,126 @@
+.hero {
+  padding-block: clamp(32px, 4.5vw, 72px) var(--section-space);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 4fr) minmax(0, 1fr);
+  column-gap: clamp(24px, 3vw, 48px);
+  align-items: end;
+}
+
+.copy {
+  --title-size: clamp(3.5rem, 8.6vw, 8rem);
+  grid-column: 1;
+  padding-bottom: clamp(0px, 2vw, 32px);
+}
+
+.card {
+  grid-column: 2;
+}
+
+.title {
+  font-size: var(--title-size);
+  font-variation-settings: "opsz" 96;
+  line-height: 0.9;
+  letter-spacing: -0.025em;
+  text-wrap: initial;
+}
+
+.line {
+  display: block;
+  overflow: hidden;
+  /* Folga para as descendentes e o til não serem cortados pelo overflow. */
+  padding-bottom: 0.08em;
+  margin-bottom: -0.08em;
+}
+
+.lineInner {
+  display: inline-block;
+  animation: rise 900ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+
+.line:nth-child(2) {
+  padding-left: 0.62em;
+}
+
+.line:nth-child(4) {
+  padding-left: 1.24em;
+}
+
+.lead {
+  max-width: 34ch;
+  margin-top: clamp(28px, 3vw, 44px);
+  margin-left: calc(var(--title-size) * 0.62);
+  font-size: 1.3125rem;
+  line-height: 1.55;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  margin-top: 32px;
+  margin-left: calc(var(--title-size) * 0.62);
+}
+
+@keyframes rise {
+  from {
+    transform: translateY(105%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 1100px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  }
+}
+
+@media (max-width: 880px) {
+  .grid {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 56px;
+  }
+
+  .copy,
+  .card {
+    grid-column: 1;
+  }
+
+  .card {
+    max-width: 520px;
+  }
+
+  .lead,
+  .actions {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 480px) {
+  .line:nth-child(2) {
+    padding-left: 0.4em;
+  }
+
+  .line:nth-child(4) {
+    padding-left: 0.8em;
+  }
+
+  .lead {
+    font-size: 1.1875rem;
+  }
+
+  .actions :global(.button) {
+    width: 100%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .lineInner {
+    animation: none;
+  }
+}
