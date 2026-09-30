@@ -18,5 +18,3 @@ export const viewport: Viewport = { themeColor: '#151515' };
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return <html lang="pt-BR" className={`${heading.variable} ${body.variable}`}><body><a href="#conteudo" className="skip">Pular para o conteúdo</a>{children}</body></html>;
 }
-
-

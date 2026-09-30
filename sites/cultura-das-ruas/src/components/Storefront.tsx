@@ -15,6 +15,11 @@ export function Storefront() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [notice, setNotice] = useState('');
+  useEffect(() => {
+    if (!notice) return;
+    const timer = window.setTimeout(() => setNotice(''), 6000);
+    return () => window.clearTimeout(timer);
+  }, [notice]);
   const count = bag.reduce((sum, item) => sum + item.quantity, 0);
   const total = bag.reduce((sum, item) => sum + item.quantity * item.product.price, 0);
   const visible = products.filter(p => (filter === 'Todos' || p.category === filter) && `${p.name} ${p.kind}`.toLocaleLowerCase('pt-BR').includes(query.toLocaleLowerCase('pt-BR')));
@@ -77,5 +82,3 @@ export function Storefront() {
     {drawer && <div className="overlay" onMouseDown={e => { if (e.target === e.currentTarget) setDrawer(null); }}><aside ref={dialogRef} className="drawer" role="dialog" aria-modal="true" aria-label={drawer === 'bag' ? 'Sacola demonstrativa' : 'Menu de navegação'}><div className="drawer-head"><span>{drawer === 'bag' ? `SACOLA / ${count}` : 'MENU'}</span><button onClick={() => setDrawer(null)} aria-label="Fechar">×</button></div>{drawer === 'menu' ? <nav className="drawer-menu"><a href="#drop" onClick={() => setDrawer(null)}>Novidades <span>01</span></a><button onClick={() => choose('Sneakers')}>Sneakers <span>02</span></button><button onClick={() => choose('Roupas')}>Roupas <span>03</span></button><a href="#sobre" onClick={() => setDrawer(null)}>A marca <span>04</span></a></nav> : <div className="bag-content">{bag.length ? <>{bag.map(item => <div className="bag-item" key={`${item.product.id}-${item.size}`}><div className={`bag-photo quadrant-${item.product.quadrant}`} /><div><b>{item.product.name}</b><small>Tamanho {item.size}</small><strong>{money(item.product.price * item.quantity)}</strong><div className="quantity"><button aria-label={`Remover um ${item.product.name}`} onClick={() => changeQuantity(item.product.id, item.size, -1)}>−</button><span>{item.quantity}</span><button aria-label={`Adicionar um ${item.product.name}`} onClick={() => changeQuantity(item.product.id, item.size, 1)}>+</button></div></div></div>)}<div className="bag-total"><span>Subtotal ilustrativo</span><b>{money(total)}</b></div></> : <p className="bag-empty">Sua sacola demonstrativa está vazia. Escolha um produto e tamanho na vitrine.</p>}<p className="bag-note">Este é um projeto de demonstração. Nenhum pedido ou pagamento será realizado.</p><a className="red-button" href={brand.contact} target="_blank" rel="noopener noreferrer">QUERO UMA LOJA ASSIM ↗</a></div>}</aside></div>}
   </>;
 }
-
-

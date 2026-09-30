@@ -14,5 +14,4 @@
 @media(max-width:700px){.demo-bar{font-size:9px;padding:7px 10px;gap:4px 10px}.header{gap:10px}.header-actions{gap:10px}.search-button{display:grid}.wordmark{font-size:clamp(18px,5.2vw,24px)}.hero{min-height:650px;max-height:none;padding-top:70px}.hero h1{font-size:clamp(63px,15vw,100px)}.hero p{font-size:12px}.hero-photo{background-position:65% center}.hero-shade{background:linear-gradient(0deg,#000b,transparent 90%),linear-gradient(90deg,#0005,transparent 90%)}.drop-copy{padding:48px 22px 40px}.drop h2{font-size:110px}.drop-art{min-height:0;aspect-ratio:650/386}.product-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.product-info h3{font-size:16px}.product-actions{align-items:end;flex-wrap:wrap;padding:8px}.sizes{gap:4px}.sizes button{min-width:30px;min-height:34px}.add-button{width:100%;height:38px;margin-top:5px}.add-button:before{content:'ADICIONAR ';font-size:10px;vertical-align:middle}.manifesto-image{min-height:340px}.search-panel{right:8px}.product-info{padding-top:12px}}
 @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}}
 
-
-
+.toast{pointer-events:none}.toast button{pointer-events:auto}.hero h1{line-height:.92}.final-cta h2{line-height:.94}.manifesto h2{line-height:.95}

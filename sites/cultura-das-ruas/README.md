@@ -10,7 +10,7 @@ Next.js 16, React 19, TypeScript e CSS. Identidade editorial preta, osso e verme
 
 Projeto Vercel `cultura-das-ruas`, conectado à `main` de `Mateus-Sousa93/sites_base`, com **Root Directory** `sites/cultura-das-ruas`.
 
-- Hospedagem: https://cultura-das-ruas.vercel.app
+- Hospedagem: https://cultura-das-ruas-conceito.vercel.app
 - Domínio cadastrado: https://ruas.estudioconceito.com
 - Case: https://www.estudioconceito.com/portfolio/cultura-das-ruas
 - DNS confirmado pela API Vercel em 30/09/2026: CNAME `ruas` → `3b2db374b46550a7.vercel-dns-017.com.`. A alteração na Hostinger fica com o proprietário. Até o apontamento, o case usa a URL pública da Vercel.
