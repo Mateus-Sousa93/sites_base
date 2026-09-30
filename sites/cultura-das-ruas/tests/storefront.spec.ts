@@ -41,7 +41,7 @@ test('catalog, search, sizes, bag and navigation work without overflow', async (
   }
   await page.getByRole('group', { name: 'Filtrar produtos' }).getByRole('button', { name: 'Todos', exact: true }).click();
   await page.evaluate(() => document.fonts.ready);
-  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
+  await expect.poll(() => page.evaluate(() => document.documentElement.scrollWidth <= document.documentElement.clientWidth)).toBe(true);
   for (const asset of ['hero.jpg', 'products.jpg', 'editorial.jpg']) {
     const response = await page.request.get(`/images/${asset}`);
     expect(response.status()).toBe(200);
