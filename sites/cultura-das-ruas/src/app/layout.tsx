@@ -9,9 +9,9 @@ const body = Archivo({ subsets: ['latin'], variable: '--font-body', display: 'sw
 export const metadata: Metadata = {
   metadataBase: new URL(brand.url),
   title: `${brand.name} | Sneakers e streetwear`,
-  description: 'Projeto demonstrativo de loja de sneakers e streetwear criado pelo Estúdio Conceito.',
+  description: 'Sneakers, roupas e atitude. Conheça o Drop 01 da Cultura das Ruas.',
   robots: { index: false, follow: false },
-  openGraph: { title: brand.name, description: 'Projeto demonstrativo de loja de sneakers e streetwear.', type: 'website', locale: 'pt_BR', images: ['/images/hero.jpg'] },
+  openGraph: { title: brand.name, description: 'Sneakers, roupas e atitude. Conheça o Drop 01.', type: 'website', locale: 'pt_BR', images: ['/images/hero.jpg'] },
 };
 export const viewport: Viewport = { themeColor: '#151515' };
 

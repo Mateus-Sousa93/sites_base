@@ -1,7 +1,7 @@
 export const brand = {
   name: 'Cultura das Ruas',
   url: 'https://ruas.estudioconceito.com',
-  contact: 'https://wa.me/5534992011427?text=Ol%C3%A1%2C%20Est%C3%BAdio%20Conceito!%20Vi%20a%20loja%20demonstrativa%20Cultura%20das%20Ruas%20e%20quero%20conversar%20sobre%20um%20site%20para%20minha%20marca.',
+  contact: 'https://wa.me/5534992011427?text=Ol%C3%A1%2C%20Est%C3%BAdio%20Conceito!%20Vi%20a%20loja%20Cultura%20das%20Ruas%20e%20quero%20conversar%20sobre%20um%20site%20para%20minha%20marca.',
 };
 
 export type Category = 'Sneakers' | 'Roupas';
