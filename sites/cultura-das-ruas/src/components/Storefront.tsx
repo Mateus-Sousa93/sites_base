@@ -62,7 +62,7 @@ export function Storefront() {
   }
 
   return <>
-    <div className="demo-bar">Loja demonstrativa · Nenhuma venda é realizada <a href="https://www.estudioconceito.com/portfolio/cultura-das-ruas">Conheça o projeto ↗</a></div><header className="header">
+    <header className="header">
       <button className="icon-button menu-button" aria-label="Abrir menu" onClick={() => setDrawer('menu')}><span className="hamburger" /></button>
       <a className="wordmark" href="#inicio">CULTURA DAS <span>RUAS</span></a>
       <nav className="desktop-nav" aria-label="Categorias"><a href="#drop">Novidades</a><button onClick={() => choose('Sneakers')}>Sneakers</button><button onClick={() => choose('Roupas')}>Roupas</button><a href="#sobre">A marca</a></nav>
