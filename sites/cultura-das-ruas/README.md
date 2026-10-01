@@ -4,7 +4,7 @@ Quinto site demonstrativo do `sites_base`: loja de sneakers e streetwear criada 
 
 ## Projeto
 
-Next.js 16, React 19, TypeScript e CSS. Identidade editorial preta, osso e vermelho. Fotografia gerada para esta demonstração. A abertura usa movimento discreto na imagem e respeita `prefers-reduced-motion`.
+Next.js 16, React 19, TypeScript e CSS. Identidade editorial preta, osso e vermelho. Cinco capítulos de `100svh` menos o cabeçalho, com catálogo dimensionado pela altura disponível. Fotografias geradas e vídeos de lifestyle licenciados. Os vídeos têm controle de reprodução, carregam ao entrar em cena, pausam fora da tela e respeitam `prefers-reduced-motion`.
 
 ## Publicação
 
@@ -21,6 +21,19 @@ Projeto Vercel `cultura-das-ruas`, conectado à `main` de `Mateus-Sousa93/sites_
 `pnpm install --frozen-lockfile`, `pnpm lint`, `pnpm typecheck`, `pnpm build`, `pnpm test`.
 
 Os testes Playwright usam a URL pública por padrão, em 1440, 390 e 320 pixels. `SITE_URL` permite definir outro endereço. Cobrem busca, filtros, validação de tamanho, inclusão e quantidade na sacola, menu, foco de teclado, imagens e overflow. Se necessário: `pnpm exec playwright install chromium`.
+
+Também cobrem desktop 1366×768, altura exata dos cinco capítulos, visibilidade de todas as ações dos produtos, reprodução/pausa de ambos os vídeos e preferência por movimento reduzido.
+
+## Vídeos
+
+Arquivos locais, sem dependência de player externo, sem áudio automático. Uso conforme a [licença Pexels](https://www.pexels.com/license/), consultada em 30/09/2026.
+
+| Arquivo | Autor e origem |
+| --- | --- |
+| `public/videos/skate-motion.mp4` e poster | Åke Wall — https://www.pexels.com/video/close-shot-of-a-person-riding-skateboard-4625096/ |
+| `public/videos/street-culture.mp4` e poster | RDNE Stock project — https://www.pexels.com/video/stylish-men-in-urban-wear-8126713/ |
+
+Os vídeos contextualizam a cultura urbana; as peças dos modelos não representam os produtos do catálogo nem endosso à marca.
 
 ## Recuperação e mídias
 
