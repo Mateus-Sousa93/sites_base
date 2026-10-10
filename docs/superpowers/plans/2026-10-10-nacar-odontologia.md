@@ -321,7 +321,7 @@ test("mídia ausente vira marcador e não gera 404", async ({ page }) => {
 - Create: `src/components/BeforeAfter.tsx` (+ CSS) · Modify: `site.ts`, `page.tsx` · Test: `tests/before-after.spec.ts`
 
 **Interfaces:**
-- Produces: `site.cases = { title; note; items: { id; label; before: Media; after: Media }[] }` com três casos (`caso-N-antes.png` / `caso-N-depois.png`; rótulos: lentes de contato, alinhadores, implante). `note` avisa que as imagens são ilustrativas. Seção `#resultados`, `data-theme="pearl"`. A cortina é um `<input type="range" min="0" max="100">` sobreposto (rótulo acessível "Posição da cortina entre antes e depois"), que escreve `--pos` no contêiner; a imagem "depois" usa `clip-path: inset(0 0 0 var(--pos))`. Seletor de caso: três botões com `aria-pressed`.
+- Produces: `site.cases = { title; note; items: { id; label; before: Media; after: Media }[] }` com três casos (`caso-N-antes.png` / `caso-N-depois.png`; rótulos: lentes de contato, alinhadores, implante). `note` avisa que são simulações ilustrativas do planejamento digital (renders 3D da Task 12, não fotos de pacientes). Seção `#resultados`, `data-theme="pearl"`. A cortina é um `<input type="range" min="0" max="100">` sobreposto (rótulo acessível "Posição da cortina entre antes e depois"), que escreve `--pos` no contêiner; a imagem "depois" usa `clip-path: inset(0 0 0 var(--pos))`. Seletor de caso: três botões com `aria-pressed`.
 
 - [ ] **Step 1: Escrever os testes**
 
@@ -380,7 +380,7 @@ test("planejamento mostra a arcada e as etapas", async ({ page }) => {
 **Interfaces:**
 - Produces:
   - `site.space = { title; items: { caption; media: Media }[] }` com quatro ambientes (`espaco-recepcao.png`, `espaco-consultorio.png`, `espaco-tecnologia.png`, `espaco-lounge.png`). Seção `#espaco`, `data-theme="ink"`, `data-stage="space"`. Desktop com movimento: palco `sticky` e trilho transladado em X pelo progresso, com parallax leve na imagem. Largura até 899 px, ponteiro grosso ou palco desativado: lista horizontal com `scroll-snap`, rolagem nativa.
-  - `site.team = { title; people: { name; role; cro; photo: Media }[] }` com duas pessoas (`equipe-1.png`, `equipe-2.png`). Seção `#equipe`, `data-theme="pearl"`.
+  - `site.team = { title; people: { name; role; cro; photo: Media }[] }` com duas pessoas (`equipe-1.png`, `equipe-2.png`). Seção `#equipe`, `data-theme="pearl"`. **Sem foto no manifesto, a pessoa aparece com um medalhão de monograma** (iniciais em `--font-serif` itálico sobre disco perolado iridescente), nunca com marcador de mídia: o site não usa rosto de banco de imagem como se fosse da equipe.
   - `site.testimonials = { rating: { value; count }; items: { quote; author; context }[] }` com três depoimentos. `data-theme="pearl"`.
 
 - [ ] **Step 1: Testes**
@@ -471,7 +471,7 @@ test("redimensionar com a página aberta não quebra o layout", async ({ page })
 **Interfaces:**
 - Produces: `pnpm midia` — lê `midia-bruta/`, e para cada arquivo cujo nome está em `MIDIA.md`:
   - vídeo → `public/media/<nome>.mp4` (H.264, sem áudio, largura máxima 1280, CRF que mantenha o arquivo perto de 1,5 MB, `+faststart`) e `public/media/<nome>-poster.jpg` (quadro em 1 s);
-  - imagem → `public/media/<nome>.jpg` (largura máxima 1920, qualidade ~82).
+  - imagem → `public/media/<nome>.jpg` (largura máxima 1920, qualidade ~82). A entrada pode ser `.png`, `.jpg`, `.jpeg` ou `.webp`; o que identifica o item é o nome sem extensão.
   - Reescreve `src/content/media-manifest.json` com `src`, `poster`, `width`, `height` de tudo o que existe em `public/media/`, e imprime uma tabela de presentes e ausentes.
   - Usa o ffmpeg de `process.env.FFMPEG_DIR` ou, por padrão, `E:\Tools\ffmpeg\bin`. Sem dependências npm novas.
   - Exporta a função pura `planOutputs(file: string): { kind: "video" | "image"; out: string; poster: string | null } | null` (nome fora da lista → `null`). O processamento só roda quando o arquivo é executado diretamente, não quando é importado pelo teste.
@@ -498,3 +498,78 @@ test("mapeamento de nomes", () => {
 - [ ] Passada final em 1440, 1366×768, 390 e 320 px: foco de teclado, contraste, peso do JS inicial e dos vídeos contra o orçamento da spec.
 - [ ] Revisão de código da branch inteira; corrigir achados.
 - [ ] Merge na `main`, domínio `nacar.estudioconceito.com` no projeto Vercel, e passar ao Mateus o CNAME para a Hostinger.
+
+---
+
+## Adendo de 10/10/2026: mudança de mídia
+
+Os clipes gerados no Veo não serviram e o Pexels passou a exigir verificação humana para acesso automatizado. Decisão: **o site não depende de mídia gerada por terceiros para ir ao ar.**
+
+- Clipes dos tratamentos, clipe do planejamento e pares de antes e depois: renders 3D nossos (Task 12), com o material e a luz da lente do hero.
+- Ambientes: fotos do Unsplash (licença gratuita), com tratamento de cor único.
+- Equipe: medalhão de monograma enquanto não houver foto real (Task 8).
+- Ordem de execução atual: 3 → 5 → 6 → 7 → 8 → 9 → 10 → 11, com a Task 12 em paralelo num worktree a partir do fim da Task 3. A Task 4 (preview) deixa de ser ponto de parada: a publicação acontece uma vez, na Task 11.
+
+### Task 12: Estúdio de render
+
+Entrega: uma ferramenta local que desenha cenas Three.js quadro a quadro e grava os clipes e as imagens de que o site precisa, com os nomes canônicos. Nada disso entra no bundle do site.
+
+**Files:**
+- Create: `render/studio.mjs` (servidor estático + captura), `render/studio.html`, `render/lib/{stage.js,materials.js,arch.js,loop.js}`, `render/scenes/{lente,implante,alinhador,clareamento,arcada,simulacao}.js`
+- Modify: `package.json` (script `render`), `eslint.config.mjs` (se preciso para `render/`)
+- Test: `tests/unit/render-arch.spec.ts`, `tests/unit/render-loop.spec.ts`, `tests/unit/render-smoke.spec.ts`
+
+**Interfaces:**
+- Consumes: `createLensGeometry` de `src/components/hero/lensGeometry.ts` (o servidor do estúdio transpila `.ts` sob demanda com o `typescript` já instalado; não duplicar a geometria) e os parâmetros de material da lente do hero.
+- Produces:
+  - `pnpm render [cena…] [--preview] [--out <pasta>]` — sem nome de cena renderiza tudo; `--out` padrão é `midia-bruta/`. Sobe um servidor estático local (porta 3310) que serve `render/`, `src/` e `node_modules/` (import map para `three` e `three/addons/`), abre o Chromium do Playwright, desenha cada quadro de forma determinística (`window.__frame(i)` resolve quando o quadro está pronto) e envia os PNGs por pipe para o ffmpeg (`process.env.FFMPEG_DIR` ou `E:\Tools\ffmpeg\bin`), sem gravar quadros soltos em disco. `--preview` renderiza 12 quadros por cena em meia resolução para conferência.
+  - Saídas: `lente.mp4`, `implante.mp4`, `alinhador.mp4`, `clareamento.mp4`, `checkup.mp4` (1080×1350, 30 fps, 6 s, H.264 CRF 18, sem áudio, fundo tinta `#0B1020` com brilho radial azul-gelo); `planejamento.mp4` (1920×1080, 30 fps, 8 s, fundo preto puro `#000000`); `caso-1-antes.png`, `caso-1-depois.png`, `caso-2-antes.png`, `caso-2-depois.png`, `caso-3-antes.png`, `caso-3-depois.png` (1536×1024).
+  - Todo clipe é um **loop perfeito**: o estado do quadro `N` é idêntico ao do quadro `0`.
+  - `render/lib/loop.js`: `loopPhase(frame: number, total: number): number` (0 ≤ fase < 1, `loopPhase(total, total) === 0`).
+  - `render/lib/arch.js`: `buildArch(overrides?: Record<number, ToothOverride>): Tooth[]` — 14 dentes de uma arcada superior ao longo de uma parábola, simétricos, cada um com `type` (`incisor`, `canine`, `premolar`, `molar`), `position`, `rotation`, `scale`, `tint` e `absent`. `ToothOverride = { rotate?: [x, y, z]; offset?: [x, y, z]; scale?: [x, y, z]; tint?: number; absent?: boolean }`, somado ao dente de mesmo índice.
+
+**Cenas**
+
+| Cena | Saída | O que mostra |
+|---|---|---|
+| `lente` | `lente.mp4` | A lente do hero em giro completo e lento, com a luz atravessando a cerâmica |
+| `implante` | `implante.mp4` | Implante de titânio (corpo cônico com rosca helicoidal de verdade e conexão hexagonal), girando, com uma barra de luz percorrendo a rosca |
+| `alinhador` | `alinhador.mp4` | A arcada como casca transparente e fina (plástico cristalino, sem dentes dentro), girando, com refração e brilho nas bordas |
+| `clareamento` | `clareamento.mp4` | Os dentes da frente vistos de frente: a luz varre da esquerda para a direita enquanto o tom vai do amarelado ao branco natural e volta |
+| `arcada` | `checkup.mp4`, `planejamento.mp4` | A arcada em nuvem de pontos e malha fina azul-gelo, com uma linha de varredura; duas variantes de enquadramento e fundo |
+| `simulacao` | seis PNGs | Modelo de estudo (dentes perolados sobre base fosca), mesma câmera nos dois estados de cada caso. Caso 1, lentes: tom amarelado, comprimentos irregulares e diastema → uniforme e claro. Caso 2, alinhadores: apinhamento e giroversão → alinhado. Caso 3, implante: pré-molar ausente → arcada completa |
+
+A régua de qualidade é a do hero: cerâmica translúcida com reflexo de madrepérola, luz de estúdio fria com contraluz desenhando a borda, movimento lento e pesado. Nada pode parecer plástico de brinquedo.
+
+- [ ] **Step 1: Testes**
+
+```ts
+// tests/unit/render-loop.spec.ts
+test("fase do loop fecha em zero", () => {
+  expect(loopPhase(0, 180)).toBe(0);
+  expect(loopPhase(90, 180)).toBeCloseTo(0.5);
+  expect(loopPhase(180, 180)).toBe(0);
+});
+
+// tests/unit/render-arch.spec.ts
+test("arcada simétrica com 14 dentes e overrides", () => {
+  const arch = buildArch();
+  expect(arch).toHaveLength(14);
+  arch.forEach((t, i) => {
+    const m = arch[13 - i];
+    expect(t.position[0]).toBeCloseTo(-m.position[0]);
+    expect(t.type).toBe(m.type);
+  });
+  const changed = buildArch({ 4: { absent: true }, 6: { rotate: [0, 0.3, 0] } });
+  expect(changed[4].absent).toBe(true);
+  expect(changed[6].rotation[1]).toBeCloseTo(arch[6].rotation[1] + 0.3);
+});
+```
+
+`tests/unit/render-smoke.spec.ts`: roda `node render/studio.mjs --preview --out <pasta temporária>` e verifica que os 6 `.mp4` e os 6 `.png` existem, cada um com mais de 10 KB, e que cada PNG não é um quadro uniforme (mais de uma cor distinta entre pixels amostrados).
+
+- [ ] **Step 2:** rodar e ver falhar.
+- [ ] **Step 3:** implementar `loop.js` e `arch.js`; `pnpm exec playwright test --project=unit`.
+- [ ] **Step 4:** implementar o estúdio e as cenas; conferir a olho os quadros do `--preview` de cada cena e iterar até o nível do hero.
+- [ ] **Step 5:** rodar o render completo; `pnpm typecheck && pnpm lint && pnpm test`.
+- [ ] **Step 6:** commit `feat(nacar-odontologia): estúdio de render e mídia 3D`.
