@@ -22,7 +22,9 @@
 - WhatsApp: número `5534992011427`, exibição `(34) 99201-1427`, saudação `Olá, Estúdio Conceito! Vi o site demonstrativo da Nácar Odontologia e quero saber mais sobre um projeto assim.`
 - `site.url` = `https://nacar.estudioconceito.com`, `site.demo` = `true` (robots `noindex, nofollow` e aviso no rodapé).
 - **Conteúdo visível por padrão.** O HTML renderizado no servidor mostra todo o texto. Animações de entrada acima da dobra são CSS; abaixo da dobra o GSAP define o estado inicial ao montar. Com `prefers-reduced-motion: reduce` não há Lenis, não há seções fixas, não há canvas.
-- O elemento de LCP é o `<h1>` do hero. O canvas nunca bloqueia a primeira pintura.
+- O elemento de LCP é texto do hero renderizado no servidor (no desktop, o título; no celular pode ser o parágrafo de apoio), medido sem artifício de opacidade. O canvas nunca bloqueia a primeira pintura.
+- Seções são alvos de âncora rentes ao topo da janela (`scroll-margin-top` negativo em `[data-theme]`): toda seção tem `padding-top` de pelo menos `var(--header-h)`.
+- Palcos altos de scroll só existem sob `html[data-motion="on"]` e `@media (min-height: 520px)`; `useStageProgress(...).enabled` espelha essa regra.
 - Cada seção declara `data-theme="ink"` ou `data-theme="pearl"`.
 - Commits pequenos na branch `feat/nacar-odontologia`, mensagens no padrão do repositório (`feat(nacar-odontologia): …`).
 
