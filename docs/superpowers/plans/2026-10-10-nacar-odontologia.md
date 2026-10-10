@@ -380,8 +380,8 @@ test("planejamento mostra a arcada e as etapas", async ({ page }) => {
 **Interfaces:**
 - Produces:
   - `site.space = { title; items: { caption; media: Media }[] }` com quatro ambientes (`espaco-recepcao.png`, `espaco-consultorio.png`, `espaco-tecnologia.png`, `espaco-lounge.png`). Seção `#espaco`, `data-theme="ink"`, `data-stage="space"`. Desktop com movimento: palco `sticky` e trilho transladado em X pelo progresso, com parallax leve na imagem. Largura até 899 px, ponteiro grosso ou palco desativado: lista horizontal com `scroll-snap`, rolagem nativa.
-  - `site.team = { title; people: { name; role; cro; photo: Media }[] }` com duas pessoas (`equipe-1.png`, `equipe-2.png`). Seção `#equipe`, `data-theme="pearl"`. **Sem foto no manifesto, a pessoa aparece com um medalhão de monograma** (iniciais em `--font-serif` itálico sobre disco perolado iridescente), nunca com marcador de mídia: o site não usa rosto de banco de imagem como se fosse da equipe.
-  - `site.testimonials = { rating: { value; count }; items: { quote; author; context }[] }` com três depoimentos. `data-theme="pearl"`.
+  - `site.team = { title; people: { name; role; cro; photo: Media }[] }` com duas pessoas (`equipe-1.png`, `equipe-2.png`). Seção `#equipe`, `data-theme="pearl"`. **Sem foto no manifesto, a pessoa aparece com um medalhão de monograma** (iniciais em `--font-serif` itálico sobre disco perolado iridescente), nunca com marcador de mídia: o site não usa rosto de banco de imagem como se fosse da equipe. `site.team.photo = media("equipe-atendimento.jpg", …)` é uma foto editorial de mãos em atendimento, ao lado dos cartões.
+  - `site.testimonials = { rating: { value; count }; photo: Media; items: { quote; author; context }[] }` com três depoimentos e `photo = media("depoimentos-sorriso.jpg", …)` (close de sorriso em preto e branco). `data-theme="pearl"`. As fotos de ambiente em `site.space` usam os nomes `espaco-recepcao.jpg`, `espaco-consultorio.jpg`, `espaco-tecnologia.jpg`, `espaco-lounge.jpg`.
 
 - [ ] **Step 1: Testes**
 
@@ -469,7 +469,7 @@ test("redimensionar com a página aberta não quebra o layout", async ({ page })
 - Test: `tests/unit/midia.spec.ts`
 
 **Interfaces:**
-- Produces: `pnpm midia` — lê `midia-bruta/`, e para cada arquivo cujo nome está em `MIDIA.md`:
+- Produces: `pnpm midia` — lê `midia-bruta/`, e para cada arquivo cujo nome (sem extensão) está na lista canônica — `lente`, `implante`, `alinhador`, `clareamento`, `checkup`, `planejamento` (vídeos); `caso-1-antes`, `caso-1-depois`, `caso-2-antes`, `caso-2-depois`, `caso-3-antes`, `caso-3-depois`, `espaco-recepcao`, `espaco-consultorio`, `espaco-tecnologia`, `espaco-lounge`, `equipe-atendimento`, `equipe-1`, `equipe-2`, `depoimentos-sorriso` (imagens):
   - vídeo → `public/media/<nome>.mp4` (H.264, sem áudio, largura máxima 1280, CRF que mantenha o arquivo perto de 1,5 MB, `+faststart`) e `public/media/<nome>-poster.jpg` (quadro em 1 s);
   - imagem → `public/media/<nome>.jpg` (largura máxima 1920, qualidade ~82). A entrada pode ser `.png`, `.jpg`, `.jpeg` ou `.webp`; o que identifica o item é o nome sem extensão.
   - Reescreve `src/content/media-manifest.json` com `src`, `poster`, `width`, `height` de tudo o que existe em `public/media/`, e imprime uma tabela de presentes e ausentes.
