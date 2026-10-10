@@ -1,8 +1,29 @@
+/* As cores vêm de data-header-theme (tinta ou pérola, conforme a seção sob a
+   barra). Na troca o fundo esmaece de uma cor à outra e o texto vira de uma vez,
+   bem no meio do caminho: se os dois esmaecessem juntos, texto e fundo passariam
+   pelo mesmo cinza ao mesmo tempo e a barra ficaria um instante sem nada.
+   --swap é a duração da troca e vem do componente. */
 .header {
   position: fixed;
   inset: 0 0 auto;
   z-index: 60;
   color: var(--fg);
+  transition:
+    --bg var(--swap) ease-in-out,
+    --fg 0s calc(var(--swap) / 2),
+    --muted 0s calc(var(--swap) / 2),
+    --rule 0s calc(var(--swap) / 2);
+}
+
+/* Enquanto a troca dura, os filhos não fazem a própria transição de cor (a do
+   hover): ela esmaeceria o texto justo quando o fundo passa pelo cinza. */
+.header[data-header-swapping] :is(.nav a, .cta) {
+  transition: none;
+}
+
+/* O menu abre sempre escuro, sem passar pela troca. */
+.isOpen {
+  transition: none;
 }
 
 /* Fundo fosco da barra, com a borda de baixo esfumada: sobre a tinta do hero ele
@@ -20,7 +41,16 @@
   -webkit-mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
   mask-image: linear-gradient(to bottom, #000 calc(100% - 44px), transparent);
   pointer-events: none;
-  transition: background-color 240ms ease;
+}
+
+/* Enquanto a barra ainda cobre o fim da seção anterior, de outro tema, o fundo
+   fica opaco e sem a borda esfumada: fosco, deixaria a outra cor sujar a barra.
+   A seção nova começa na borda de baixo ou acima dela, e a emenda não aparece. */
+.header[data-header-crossing]::before {
+  inset: 0;
+  background: var(--bg);
+  -webkit-mask-image: none;
+  mask-image: none;
 }
 
 /* Com o menu aberto a barra fica opaca e inteira, emendada no menu. */
@@ -278,5 +308,20 @@
 
   .menuFoot :global(.button) {
     width: 100%;
+  }
+}
+
+/* Entrada: o conteúdo da barra aparece junto com o hero. Só CSS e sem partir de
+   opacidade zero, como lá. A animação fica na barra, e não no cabeçalho, para
+   não mexer no menu fixo. */
+@media (prefers-reduced-motion: no-preference) {
+  .bar {
+    animation: barIn 1.1s ease-out 120ms backwards;
+  }
+}
+
+@keyframes barIn {
+  from {
+    opacity: 0.002;
   }
 }

@@ -1,8 +1,11 @@
-import { Fragment } from "react";
+import { Fragment, type CSSProperties } from "react";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/format";
 import { ArrowIcon } from "../icons";
 import styles from "./Hero.module.css";
+
+// Posição do elemento na entrada escalonada (ver "Entrada" no CSS).
+const order = (index: number) => ({ "--i": index }) as CSSProperties;
 
 export function Hero() {
   const { titleLines, titleAccent, lead, cta, caption, trust } = site.hero;
@@ -12,14 +15,24 @@ export function Hero() {
       <div className={styles.stage}>
         <div className={`container ${styles.layout}`}>
           <div className={styles.copy}>
-            {/* Cada linha é um bloco; o espaço entre elas mantém a frase inteira no texto do DOM. */}
+            {/* Cada linha é um bloco com o texto num bloco interno: o de fora é a
+                máscara, o de dentro sobe na entrada. O espaço entre as linhas
+                mantém a frase inteira no texto do DOM. */}
             <h1 id="hero-title" className={styles.title}>
-              {titleLines.map((line) => (
+              {titleLines.map((line, index) => (
                 <Fragment key={line}>
-                  <span className={styles.line}>{line}</span>{" "}
+                  <span className={styles.line}>
+                    <span className={styles.lineText} style={order(index)}>
+                      {line}
+                    </span>
+                  </span>{" "}
                 </Fragment>
               ))}
-              <em className={`${styles.line} ${styles.accent}`}>{titleAccent}</em>
+              <span className={styles.line}>
+                <em className={`${styles.lineText} ${styles.accent}`} style={order(titleLines.length)}>
+                  {titleAccent}
+                </em>
+              </span>
             </h1>
             <p className={styles.lead}>{lead}</p>
             <a className={`button ${styles.cta}`} href={whatsappUrl()} target="_blank" rel="noopener noreferrer">
@@ -37,8 +50,8 @@ export function Hero() {
           </div>
 
           <dl className={styles.trust}>
-            {trust.map((item) => (
-              <div key={item.label} className={styles.trustItem}>
+            {trust.map((item, index) => (
+              <div key={item.label} className={styles.trustItem} style={order(index)}>
                 <dt>{item.label}</dt>
                 <dd>{item.value}</dd>
               </div>

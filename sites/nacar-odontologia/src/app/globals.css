@@ -26,6 +26,8 @@
   --header-h: 76px;
 
   --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
+  /* Entradas de texto e de objeto: saída rápida, chegada longa, sem ricochete. */
+  --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
 
   scrollbar-color: #3b435a var(--ink);
 }
@@ -36,10 +38,39 @@
   }
 }
 
+/* As cores de tema são registradas como cor para poderem ser animadas (é o que
+   suaviza a troca de tema do cabeçalho). O valor inicial nunca aparece: :root
+   sempre define as quatro. */
+@property --bg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --fg {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --muted {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
+@property --rule {
+  syntax: "<color>";
+  inherits: true;
+  initial-value: transparent;
+}
+
 /* Tema: cada seção declara data-theme="ink" ou "pearl" e recebe as cores
-   derivadas. Fora de uma seção (cabeçalho, barra do celular) vale a tinta. */
+   derivadas. Fora de uma seção (barra do celular) vale a tinta. O cabeçalho
+   recebe as mesmas cores por data-header-theme, que acompanha a seção sob ele. */
 :root,
-[data-theme="ink"] {
+[data-theme="ink"],
+[data-header-theme="ink"] {
   --bg: var(--ink);
   --fg: var(--pearl);
   --muted: rgb(244 241 236 / 0.66);
@@ -47,7 +78,8 @@
   --focus: var(--ice);
 }
 
-[data-theme="pearl"] {
+[data-theme="pearl"],
+[data-header-theme="pearl"] {
   --bg: var(--pearl);
   --fg: var(--ink);
   --muted: rgb(11 16 32 / 0.64);
@@ -55,9 +87,13 @@
   --focus: var(--ink);
 }
 
+/* Como destino de âncora, a seção encosta no topo da janela (a margem anula o
+   scroll-padding-top do html): o cabeçalho fica sobre o respiro de cima dela, já
+   com o seu tema. Toda seção precisa desse respiro, de pelo menos --header-h. */
 [data-theme] {
   background-color: var(--bg);
   color: var(--fg);
+  scroll-margin-top: calc(var(--header-h) * -1);
 }
 
 *,
@@ -134,6 +170,12 @@ button {
 :focus-visible {
   outline: 2px solid var(--focus);
   outline-offset: 4px;
+}
+
+/* Destino de âncora que recebeu o foco pelo script de scroll: é ponto de
+   partida para a tabulação, não um controle, e não ganha contorno. */
+[tabindex="-1"]:focus {
+  outline: none;
 }
 
 ::selection {
@@ -277,4 +319,13 @@ button {
 .button--ghost:focus-visible {
   border-color: var(--fg);
   color: var(--bg);
+}
+
+/* Texto dividido pelo SplitReveal (modo "lines"): cada linha fica dentro de uma
+   máscara. O recorte da máscara tem folga para não cortar acentos, descendentes
+   e itálicos em entrelinha apertada, e é um clip-path (no lugar do `overflow`
+   que o SplitText põe) para a folga não mexer na altura das linhas. */
+.split-line-mask {
+  overflow: visible !important;
+  clip-path: inset(-0.12em -0.1em -0.18em);
 }

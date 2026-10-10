@@ -1,4 +1,5 @@
 import { site } from "@/content/site";
+import { SplitReveal } from "@/motion/SplitReveal";
 import styles from "./Manifesto.module.css";
 
 export function Manifesto() {
@@ -13,16 +14,19 @@ export function Manifesto() {
         <h2 id="manifesto-title" className={`eyebrow ${styles.label}`}>
           {label}
         </h2>
-        <p className={styles.text}>
+        {/* As palavras acendem conforme o parágrafo atravessa a tela. */}
+        <SplitReveal as="p" mode="words-scrub" className={styles.text}>
           {before}
           {rest.length > 0 && <em>{accent}</em>}
           {after}
-        </p>
+        </SplitReveal>
         <dl className={styles.stats}>
           {stats.map((stat) => (
             <div key={stat.label} className={styles.stat}>
               <dt>{stat.label}</dt>
-              <dd>{stat.value}</dd>
+              <SplitReveal as="dd" mode="lines">
+                {stat.value}
+              </SplitReveal>
             </div>
           ))}
         </dl>

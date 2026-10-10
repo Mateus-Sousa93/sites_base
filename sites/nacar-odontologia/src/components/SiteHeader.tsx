@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type RefObject } from "react";
 import { site } from "@/content/site";
 import { whatsappUrl } from "@/lib/format";
 import { ArrowIcon, WhatsAppIcon } from "./icons";
@@ -9,10 +9,86 @@ import styles from "./SiteHeader.module.css";
 // Largura a partir da qual a navegação cabe na barra (a mesma do CSS).
 const DESKTOP_QUERY = "(min-width: 900px)";
 
+type Theme = "ink" | "pearl";
+
+// Duração da troca de tema da barra, em milissegundos. O CSS a recebe em --swap.
+const THEME_SWAP = 320;
+
+// O que há sob a barra:
+// - theme: o tema da seção que cruza a borda de baixo dela. Quando uma seção
+//   encosta na barra, a barra já assume as cores dela;
+// - crossing: a barra ainda cobre o fim da seção anterior, de outro tema;
+// - swapping: a troca de cores está em andamento.
+// Não é movimento: vale também com movimento reduzido.
+function useThemeUnder(headerRef: RefObject<HTMLElement | null>) {
+  const [under, setUnder] = useState({ theme: "ink" as Theme, crossing: false, swapping: false });
+
+  useEffect(() => {
+    const header = headerRef.current;
+    if (!header) return;
+    let frame = 0;
+    let swapTimer = 0;
+    let shown: Theme = "ink";
+
+    const read = () => {
+      frame = 0;
+      const sections = Array.from(document.querySelectorAll<HTMLElement>("[data-theme]"), (section) => {
+        const { top, bottom } = section.getBoundingClientRect();
+        return { theme: section.dataset.theme === "pearl" ? "pearl" : "ink", top, bottom } as const;
+      });
+      // A última que contém a linha: numa seção dentro de outra, vale a de dentro.
+      const themeAt = (y: number) => {
+        let theme: Theme | undefined;
+        for (const section of sections) if (section.top <= y && section.bottom > y) theme = section.theme;
+        return theme;
+      };
+
+      const theme = themeAt(header.getBoundingClientRect().bottom + 1);
+      if (!theme) return;
+      const crossing = (themeAt(1) ?? theme) !== theme;
+      const swapped = theme !== shown;
+      shown = theme;
+
+      setUnder((prev) =>
+        prev.theme === theme && prev.crossing === crossing
+          ? prev
+          : { theme, crossing, swapping: prev.swapping || swapped },
+      );
+      if (swapped) {
+        window.clearTimeout(swapTimer);
+        swapTimer = window.setTimeout(() => setUnder((prev) => ({ ...prev, swapping: false })), THEME_SWAP + 60);
+      }
+    };
+
+    // No máximo uma leitura por quadro, seja qual for a origem da mudança.
+    const schedule = () => {
+      frame ||= requestAnimationFrame(read);
+    };
+
+    // Uma seção pode trocar de tema sem a página rolar (a virada do hero).
+    const themes = new MutationObserver(schedule);
+    themes.observe(document.body, { subtree: true, attributes: true, attributeFilter: ["data-theme"] });
+    window.addEventListener("scroll", schedule, { passive: true });
+    window.addEventListener("resize", schedule);
+    schedule();
+
+    return () => {
+      themes.disconnect();
+      window.removeEventListener("scroll", schedule);
+      window.removeEventListener("resize", schedule);
+      cancelAnimationFrame(frame);
+      window.clearTimeout(swapTimer);
+    };
+  }, [headerRef]);
+
+  return under;
+}
+
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const { theme, crossing, swapping } = useThemeUnder(headerRef);
 
   useEffect(() => {
     if (!open) return;
@@ -55,7 +131,15 @@ export function SiteHeader() {
   }, [open]);
 
   return (
-    <header ref={headerRef} className={`${styles.header} ${open ? styles.isOpen : ""}`}>
+    // O menu aberto cobre a página e é sempre escuro; a barra o acompanha.
+    <header
+      ref={headerRef}
+      className={`${styles.header} ${open ? styles.isOpen : ""}`}
+      data-header-theme={open ? "ink" : theme}
+      data-header-crossing={crossing && !open ? "" : undefined}
+      data-header-swapping={swapping ? "" : undefined}
+      style={{ "--swap": `${THEME_SWAP}ms` } as CSSProperties}
+    >
       <div className={`container ${styles.bar}`}>
         <a
           href="#topo"

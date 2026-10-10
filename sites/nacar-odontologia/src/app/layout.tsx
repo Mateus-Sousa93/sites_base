@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Host_Grotesk, Instrument_Serif } from "next/font/google";
 import { fullAddress, site } from "@/content/site";
+import { SmoothScroll } from "@/motion/SmoothScroll";
 import "./globals.css";
 
 const hostGrotesk = Host_Grotesk({
@@ -54,14 +55,29 @@ const structuredData = {
   description: `${site.seo.description} ${fullAddress}.`,
 };
 
+// Roda antes da primeira pintura: o CSS que depende de movimento (palcos altos)
+// já nasce no estado certo. O <SmoothScroll> mantém o atributo depois disso. Sem
+// JavaScript o atributo não existe e a página fica em fluxo normal.
+const motionScript = `document.documentElement.dataset.motion=matchMedia("(prefers-reduced-motion: reduce)").matches?"off":"on"`;
+
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="pt-BR" className={`${hostGrotesk.variable} ${instrumentSerif.variable}`}>
+    // O script do <head> e o Lenis escrevem atributos no <html> antes e depois da
+    // hidratação; o React não deve estranhá-los.
+    <html
+      lang="pt-BR"
+      className={`${hostGrotesk.variable} ${instrumentSerif.variable}`}
+      suppressHydrationWarning
+    >
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: motionScript }} />
+      </head>
       <body>
         <a className="skip-link" href="#conteudo">
           Pular para o conteúdo
         </a>
         {children}
+        <SmoothScroll />
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
       </body>
     </html>
