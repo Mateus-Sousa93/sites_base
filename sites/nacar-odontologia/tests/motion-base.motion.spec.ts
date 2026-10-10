@@ -1,7 +1,10 @@
 import { expect, test, type Page } from "@playwright/test";
+import { largestContentfulPaint } from "./lcp";
 
 // Specs de movimento: rodam só no projeto "motion" (desktop, ponteiro fino,
-// sem preferência por movimento reduzido).
+// sem preferência por movimento reduzido, e sem WebGL: o hero fica com a lente
+// em CSS). São sobre a base de movimento; a cena 3D tem os seus em
+// hero.motion.spec.ts.
 
 const manifestoWords = (page: Page) =>
   page
@@ -14,24 +17,12 @@ const entranceDone = (page: Page) =>
     .poll(() => page.locator("#hero-title").evaluate((h1) => h1.getAnimations({ subtree: true }).length))
     .toBe(0);
 
-// Maior elemento pintado segundo o navegador (LCP): em que parte do hero está e
-// se foi pintado junto com a primeira pintura da página.
-const largestContentfulPaint = (page: Page) =>
-  page.evaluate(
-    () =>
-      new Promise<{ where: string; atFirstPaint: boolean }>((resolve) => {
-        new PerformanceObserver((list) => {
-          const entries = list.getEntries() as (PerformanceEntry & { element: Element | null })[];
-          const largest = entries[entries.length - 1];
-          const firstPaint = performance.getEntriesByName("first-contentful-paint")[0];
-          const element = largest.element;
-          resolve({
-            where: element?.closest("#hero-title") ? "título" : element?.closest("#topo") ? "hero" : "fora do hero",
-            atFirstPaint: Math.abs(largest.startTime - firstPaint.startTime) < 1,
-          });
-        }).observe({ type: "largest-contentful-paint", buffered: true });
-      }),
-  );
+// Toda a entrada do hero terminou: daqui em diante nenhum candidato novo a
+// LCP aparece.
+const settled = async (page: Page) => {
+  await entranceDone(page);
+  await expect.poll(() => page.evaluate(() => document.getAnimations().length)).toBe(0);
+};
 
 // As seções da navegação chegam nas próximas tasks; por ora um link de teste
 // aponta para a única seção que já existe abaixo do hero. Junto com ele vai um
@@ -78,7 +69,11 @@ test("cabeçalho acompanha o tema da seção", async ({ page }) => {
   await expect(page.locator("header")).toHaveAttribute("data-header-theme", "pearl");
 });
 
+// Com movimento, o hero chega ao manifesto já em pérola (a virada) e não há
+// emenda de tema entre os dois. A emenda existe com movimento reduzido, e a
+// barra a atravessa do mesmo jeito.
 test("cabeçalho: opaco enquanto cobre a emenda entre duas seções, fosco depois", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   const header = page.locator("header");
   const backdrop = () => header.evaluate((el) => getComputedStyle(el, "::before").backgroundColor);
@@ -135,25 +130,32 @@ test("hero: a entrada é CSS, por linhas, e termina com o título inteiro à vis
 });
 
 test("o movimento não muda o layout: tudo fica onde está na página estática", async ({ page }) => {
+  // Caixas de cada texto em relação ao topo da sua seção, e a altura das seções.
+  // Com movimento o hero vira um palco de 350svh: o manifesto desce junto, mas
+  // nada muda de lugar dentro de cada seção.
   const geometry = () =>
-    page.evaluate(() => ({
-      boxes: Array.from(
-        document.querySelectorAll(
-          "#hero-title, #hero-title > span > *, #topo p, #topo a, #topo dl, #manifesto p, #manifesto dd, #manifesto dt",
-        ),
-        (el) => {
+    page.evaluate(() => {
+      const section = (id: string) => document.querySelector(id)!.getBoundingClientRect();
+      const boxes = (id: string, selector: string) =>
+        Array.from(document.querySelectorAll(selector), (el) => {
           const box = el.getBoundingClientRect();
-          return [box.left, box.top + window.scrollY, box.width, box.height].map(Math.round);
-        },
-      ),
-      pageHeight: document.documentElement.scrollHeight,
-    }));
+          return [box.left, box.top - section(id).top, box.width, box.height].map(Math.round);
+        });
+      return {
+        hero: boxes("#topo", "#hero-title, #hero-title > span > *, #topo p, #topo a, #topo dl"),
+        manifesto: boxes("#manifesto", "#manifesto p, #manifesto dd, #manifesto dt"),
+        manifestoHeight: Math.round(section("#manifesto").height),
+        heroHeight: Math.round(section("#topo").height),
+        pageHeight: document.documentElement.scrollHeight,
+      };
+    });
 
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.goto("/");
   await expect(page.locator("html")).toHaveAttribute("data-motion", "off");
   const still = await geometry();
-  expect(still.boxes.length).toBeGreaterThan(12);
+  expect(still.hero.length + still.manifesto.length).toBeGreaterThan(12);
+  expect(still.heroHeight).toBe(900);
 
   // Liga o movimento com a página aberta: a entrada roda, o texto é dividido,
   // os números ficam à espera atrás das máscaras. Nada disso desloca nada.
@@ -163,13 +165,23 @@ test("o movimento não muda o layout: tudo fica onde está na página estática"
   const entrance = () => page.evaluate(() => document.getAnimations().filter((a) => a instanceof CSSAnimation).length);
   await expect.poll(entrance).toBeGreaterThan(0);
   await expect.poll(entrance).toBe(0);
-  expect(await geometry()).toEqual(still);
+  const moving = await geometry();
+  expect(moving.hero).toEqual(still.hero);
+  expect(moving.manifesto).toEqual(still.manifesto);
+  expect(moving.manifestoHeight).toBe(still.manifestoHeight);
+  expect(moving.heroHeight).toBe(3150);
+  expect(moving.pageHeight - still.pageHeight).toBe(moving.heroHeight - still.heroHeight);
 });
 
-test("hero: o LCP é o título, na primeira pintura, mesmo com a entrada animada", async ({ page }) => {
+test("hero: o LCP é o título, pintado de verdade, dentro de 2,5 s", async ({ page }) => {
   await page.goto("/");
-  await entranceDone(page);
-  expect(await largestContentfulPaint(page)).toEqual({ where: "título", atFirstPaint: true });
+  await settled(page);
+  const lcp = await largestContentfulPaint(page);
+  // Texto do hero renderizado no servidor: nunca o canvas nem a lente em CSS.
+  expect(lcp.where).toBe("título");
+  expect(lcp.time).toBeLessThan(2500);
+  // Medida honesta: a linha espera invisível pelo menos 160 ms antes de subir.
+  expect(lcp.afterFirstPaint).toBeGreaterThan(150);
 });
 
 test("hero: a entrada inteira termina a tempo, sem recomeçar no meio", async ({ page }) => {
@@ -177,7 +189,12 @@ test("hero: a entrada inteira termina a tempo, sem recomeçar no meio", async ({
   // A animação mais longa acaba 2,6 s depois da primeira pintura. Uma animação
   // que recomece no caminho (aconteceu com a legenda da lente, por causa de uma
   // container query) estoura esse prazo.
-  await page.waitForFunction(() => performance.now() > 3600);
+  // (O prazo conta da primeira pintura: com a máquina ocupada ela atrasa, e as
+  // animações só começam com ela.)
+  await page.waitForFunction(() => {
+    const firstPaint = performance.getEntriesByName("first-contentful-paint")[0];
+    return firstPaint !== undefined && performance.now() > firstPaint.startTime + 3200;
+  });
   const running = await page.evaluate(() =>
     document
       .getAnimations()
@@ -257,9 +274,11 @@ test("âncoras rolam pelo Lenis: a seção encosta no topo e o cabeçalho assume
   const headerBottom = (await header.boundingBox())!.height;
   expect((await page.locator("#manifesto-title").boundingBox())!.y).toBeGreaterThan(headerBottom);
 
-  // Rolagem animada: muitos quadros intermediários, sempre para a frente.
+  // Rolagem animada: vários quadros intermediários, sempre para a frente. (Um
+  // salto daria dois. O Chromium sem interface compõe a página por software e,
+  // atravessando o palco do hero, rende poucos quadros por segundo.)
   const samples = await scrollSamples(page);
-  expect(new Set(samples).size).toBeGreaterThan(12);
+  expect(new Set(samples).size).toBeGreaterThan(5);
   expect(samples.every((y, i) => i === 0 || y >= samples[i - 1])).toBe(true);
 
   // O que o navegador faria sozinho continua valendo: endereço e foco.
@@ -326,13 +345,15 @@ test.describe("no toque", () => {
     expect(await page.evaluate(() => document.activeElement?.id)).toBe("manifesto");
   });
 
-  // No celular o parágrafo do hero ocupa mais área que qualquer linha do
-  // título, e é ele o LCP. O que importa é que seja texto do hero e que conte
-  // desde a primeira pintura, não só quando a entrada termina.
-  test("o LCP é texto do hero, na primeira pintura", async ({ page }) => {
+  // No celular o parágrafo de apoio ocupa mais área que qualquer linha do
+  // título e costuma ser ele o LCP. O que importa é que seja texto do hero
+  // renderizado no servidor, pintado de verdade e a tempo.
+  test("o LCP é texto do hero, pintado de verdade, dentro de 2,5 s", async ({ page }) => {
     await page.goto("/");
-    await entranceDone(page);
-    await expect.poll(() => page.evaluate(() => document.getAnimations().length)).toBe(0);
-    expect(await largestContentfulPaint(page)).toEqual({ where: "hero", atFirstPaint: true });
+    await settled(page);
+    const lcp = await largestContentfulPaint(page);
+    expect(["título", "parágrafo de apoio"]).toContain(lcp.where);
+    expect(lcp.time).toBeLessThan(2500);
+    expect(lcp.afterFirstPaint).toBeGreaterThan(150);
   });
 });

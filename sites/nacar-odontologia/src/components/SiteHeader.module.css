@@ -311,9 +311,8 @@
   }
 }
 
-/* Entrada: o conteúdo da barra aparece junto com o hero. Só CSS e sem partir de
-   opacidade zero, como lá. A animação fica na barra, e não no cabeçalho, para
-   não mexer no menu fixo. */
+/* Entrada: o conteúdo da barra aparece junto com o hero. Só CSS, como lá. A
+   animação fica na barra, e não no cabeçalho, para não mexer no menu fixo. */
 @media (prefers-reduced-motion: no-preference) {
   .bar {
     animation: barIn 1.1s ease-out 120ms backwards;
@@ -322,6 +321,6 @@
 
 @keyframes barIn {
   from {
-    opacity: 0.002;
+    opacity: 0;
   }
 }

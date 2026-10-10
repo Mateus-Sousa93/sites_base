@@ -28,6 +28,12 @@
   --ease-out: cubic-bezier(0.2, 0.7, 0.1, 1);
   /* Entradas de texto e de objeto: saída rápida, chegada longa, sem ricochete. */
   --ease-reveal: cubic-bezier(0.16, 1, 0.3, 1);
+  /* A mesma curva sem a cauda: é exatamente o trecho de --ease-reveal até 99% do
+     percurso, que ocupa 62% do tempo dela. Uma entrada de duração D com
+     --ease-reveal e outra de 0,62·D com esta são o mesmo movimento, e a segunda
+     termina mais cedo. */
+  --ease-reveal-cut: cubic-bezier(0.203, 0.792, 0.385, 0.963);
+  --reveal-cut: 0.62;
 
   scrollbar-color: #3b435a var(--ink);
 }

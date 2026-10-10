@@ -1,13 +1,24 @@
-.hero {
+/* O fundo do hero é sempre tinta, mesmo depois de a seção se declarar pérola
+   (data-theme troca no meio da virada, para o cabeçalho acompanhar): quem
+   clareia a tela é a camada da virada, aos poucos. */
+.hero[data-stage] {
   position: relative;
   isolation: isolate;
   overflow: clip;
+  background-color: var(--ink);
+}
+
+/* A primeira tela inteira: o cabeçalho fixo ocupa o topo e o conteúdo, o resto. */
+.stage {
+  position: relative;
+  isolation: isolate;
+  padding-top: var(--header-h);
 }
 
 /* Atmosfera sobre a tinta: grão fino, luz fria atrás do objeto e um respiro
    mais claro no canto de baixo. Ela some sob o cabeçalho, que assim se funde
    ao fundo no topo da página. */
-.hero::before {
+.stage::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -21,11 +32,6 @@
   pointer-events: none;
 }
 
-/* A primeira tela inteira: o cabeçalho fixo ocupa o topo e o conteúdo, o resto. */
-.stage {
-  padding-top: var(--header-h);
-}
-
 .layout {
   display: grid;
   min-height: calc(100svh - var(--header-h));
@@ -35,6 +41,11 @@
     "copy object"
     "trust trust";
   column-gap: clamp(24px, 3vw, 56px);
+}
+
+/* O objeto do hero (ver HeroObject) entra na sua célula. */
+.layout > [data-hero-object] {
+  grid-area: object;
 }
 
 /* ---------- Texto ---------- */
@@ -47,8 +58,11 @@
   padding-block: clamp(20px, 4svh, 56px) clamp(28px, 5.5svh, 72px);
 }
 
+/* O corpo do título segue a largura da janela e, em janela baixa, a altura: o
+   hero inteiro cabe na primeira tela, que é tudo o que se vê dele enquanto o
+   palco está grudado. */
 .title {
-  font-size: clamp(2.75rem, 9vw, 9rem);
+  font-size: clamp(2.75rem, min(9vw, 31.4svh - 118px), 9rem);
   font-weight: 500;
   line-height: 0.92;
   letter-spacing: -0.04em;
@@ -89,161 +103,6 @@
 
 .cta:hover svg {
   transform: translate(2px, -2px);
-}
-
-/* ---------- Objeto ---------- */
-
-.object {
-  /* Altura da lente: a maior que cabe na área, inclinada, com folga para o brilho. */
-  --lens-h: min(78cqh, 84cqw, 600px);
-  --lens-shift: -3cqw;
-
-  grid-area: object;
-  position: relative;
-  display: grid;
-  place-items: center;
-  min-height: 0;
-  container-type: size;
-}
-
-/* Brilho azul-gelo atrás da lente: um halo curto e uma luz larga e fraca.
-   É gradiente, e não sombra desfocada, para não marcar faixas no escuro. */
-.object::before {
-  --d: calc(var(--lens-h) * 2.3);
-
-  content: "";
-  position: absolute;
-  left: calc(50% + var(--lens-shift));
-  top: 50%;
-  width: var(--d);
-  height: var(--d);
-  translate: -50% -50%;
-  background:
-    radial-gradient(closest-side, rgb(201 221 232 / 0.26), rgb(201 221 232 / 0.09) 42%, transparent 62%),
-    radial-gradient(closest-side, rgb(201 221 232 / 0.12), rgb(201 221 232 / 0.04) 62%, transparent 88%);
-  pointer-events: none;
-}
-
-/* Lente de porcelana desenhada em CSS: elipse inclinada, corpo perolado,
-   contraluz na borda e reflexo de madrepérola. As medidas internas seguem a
-   altura da lente (--u é 1% dela), para o desenho valer em qualquer tamanho. */
-.lensFallback {
-  --u: calc(var(--lens-h) / 100);
-
-  position: relative;
-  left: var(--lens-shift);
-  height: var(--lens-h);
-  aspect-ratio: 1 / 1.3;
-  /* Contorno da face de um dente: colo mais estreito e arredondado em cima,
-     borda incisal mais larga e reta embaixo. */
-  border-radius: 47% 53% 43% 47% / 40% 43% 29% 31%;
-  rotate: 14deg;
-  background:
-    /* ponto de luz da luz principal */
-    radial-gradient(ellipse 20% 12% at 29% 16%, #fff, rgb(255 255 255 / 0) 100%),
-    /* madrepérola atravessando o corpo */
-    linear-gradient(
-      120deg,
-      rgb(255 255 255 / 0) 36%,
-      rgb(236 212 240 / 0.36) 53%,
-      rgb(202 240 226 / 0.32) 65%,
-      rgb(201 221 232 / 0.22) 77%,
-      rgb(255 255 255 / 0) 92%
-    ),
-    /* corpo leitoso: opaco no centro, translúcido e azulado perto da borda */
-    radial-gradient(
-      ellipse 92% 86% at 36% 28%,
-      #fff 0%,
-      #f6f3ee 17%,
-      #e6e8e9 36%,
-      #c9d8e4 56%,
-      rgb(142 164 200 / 0.95) 78%,
-      rgb(80 100 146 / 0.82) 100%
-    );
-  box-shadow:
-    /* contraluz: fio claro na borda oposta à luz */
-    inset calc(var(--u) * -0.35) calc(var(--u) * -0.45) calc(var(--u) * 0.6) rgb(255 255 255 / 0.9),
-    /* sombra própria */
-    inset calc(var(--u) * -5) calc(var(--u) * -8) calc(var(--u) * 15) rgb(18 28 58 / 0.48),
-    /* luz principal */
-    inset calc(var(--u) * 3) calc(var(--u) * 4) calc(var(--u) * 9) rgb(255 255 255 / 0.55),
-    /* espessura da casca */
-    inset 0 0 0 calc(var(--u) * 0.3) rgb(255 255 255 / 0.2),
-    /* borda de trás, vista de lado */
-    calc(var(--u) * 1.4) calc(var(--u) * 0.9) 0 calc(var(--u) * -0.6) rgb(201 221 232 / 0.3);
-}
-
-/* Madrepérola: tons pastel que giram pela borda da lente. */
-.lensFallback::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  border-radius: inherit;
-  background: conic-gradient(
-    from 210deg at 46% 44%,
-    rgb(201 221 232 / 0.9),
-    rgb(236 212 240 / 0.9),
-    rgb(255 255 255 / 0.1),
-    rgb(202 240 226 / 0.85),
-    rgb(201 221 232 / 0.9),
-    rgb(220 212 246 / 0.9),
-    rgb(248 222 232 / 0.8),
-    rgb(201 221 232 / 0.9)
-  );
-  -webkit-mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, transparent 60%, #000 100%);
-  mask-image: radial-gradient(ellipse 50% 50% at 50% 50%, transparent 60%, #000 100%);
-  opacity: 0.8;
-}
-
-/* Reflexo longo e estreito, como o de uma caixa de luz na cerâmica. */
-.lensFallback::after {
-  content: "";
-  position: absolute;
-  left: 13.5%;
-  top: 24%;
-  width: 8%;
-  height: 40%;
-  border-radius: 50% / 20%;
-  background: linear-gradient(180deg, #fff, rgb(255 255 255 / 0.6) 55%, rgb(255 255 255 / 0));
-  filter: blur(calc(var(--u) * 0.9));
-  rotate: 6deg;
-}
-
-/* Legenda do objeto: texto vertical na margem direita, lido de baixo para cima. */
-.caption {
-  position: absolute;
-  right: 0;
-  top: 50%;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  writing-mode: vertical-rl;
-  translate: 0 -50%;
-  rotate: 180deg;
-  font-size: 0.6875rem;
-  font-weight: 500;
-  letter-spacing: 0.2em;
-  line-height: 1;
-  text-transform: uppercase;
-  white-space: nowrap;
-  color: var(--muted);
-}
-
-.caption::before {
-  content: "";
-  width: 1px;
-  height: 40px;
-  background: var(--rule);
-}
-
-/* Quando a área do objeto é baixa demais para a legenda, ela sai. Sai por
-   visibilidade, e não por `display`: a cada recálculo de estilo o navegador
-   reavalia a consulta e, por um instante, a dá como verdadeira; com `display`
-   isso recomeçava a animação de entrada da legenda a cada vez. */
-@container (max-height: 215px) {
-  .caption {
-    visibility: hidden;
-  }
 }
 
 /* ---------- Selos de confiança ---------- */
@@ -291,26 +150,11 @@
 @media (max-width: 899px) {
   .layout {
     grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(clamp(210px, 32svh, 280px), 1fr) auto auto;
+    grid-template-rows: minmax(132px, 1fr) auto auto;
     grid-template-areas:
       "object"
       "copy"
       "trust";
-  }
-
-  .object {
-    --lens-h: min(80cqh, 86cqw, 520px);
-    --lens-shift: 0px;
-  }
-
-  .caption {
-    gap: 0;
-    font-size: 0.625rem;
-    letter-spacing: 0.18em;
-  }
-
-  .caption::before {
-    content: none;
   }
 
   .copy {
@@ -357,59 +201,113 @@
   }
 }
 
+/* ---------- Palco ---------- */
+
+/* Com movimento ligado e janela de pelo menos 520 px de altura (a regra dos
+   palcos, ver useStageProgress), o hero vira um palco: a seção tem três telas e
+   meia e a primeira tela fica grudada enquanto a página rola por dentro dela.
+   O progresso desse scroll chega pelo componente em três propriedades:
+     --hero-p     progresso do palco, de 0 a 1;
+     --hero-exit  quanto o texto já saiu, de 0 a 1;
+     --hero-glow  quanto a tela já clareou, de 0 a 1.
+
+   A tela gruda pelo pé (a seção empilha o conteúdo embaixo e o `sticky` o segura
+   no pé da janela). Quando o conteúdo cabe na janela, dá no mesmo que grudar
+   pelo topo. Quando é mais alto que ela (celular baixo), a página primeiro rola
+   até mostrar o pé do conteúdo e só então gruda: nada fica inalcançável. */
+@media (min-height: 520px) {
+  html[data-motion="on"] .hero {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    height: 350svh;
+  }
+
+  html[data-motion="on"] .stage {
+    position: sticky;
+    bottom: 0;
+    flex: none;
+  }
+
+  /* O texto sai da frente da lente: apaga e sobe, o bloco inteiro. O título
+     abre um pouco ao sair (a primeira linha sobe mais que a última). */
+  html[data-motion="on"] .copy,
+  html[data-motion="on"] .trust {
+    opacity: calc(1 - var(--hero-exit, 0));
+    will-change: opacity, transform;
+  }
+
+  html[data-motion="on"] .copy {
+    transform: translate3d(0, calc(var(--hero-exit, 0) * -7svh), 0);
+  }
+
+  html[data-motion="on"] .trust {
+    transform: translate3d(0, calc(var(--hero-exit, 0) * -3svh), 0);
+  }
+
+  html[data-motion="on"] .line {
+    transform: translate3d(0, calc(var(--hero-exit, 0) * (var(--i) - 2) * 2.2svh), 0);
+  }
+
+  /* Depois de sair, o texto fica inerte (atributo posto pelo componente) e nem
+     é pintado. */
+  html[data-motion="on"] :is(.copy, .trust)[inert] {
+    visibility: hidden;
+  }
+}
+
+/* A virada: uma cobertura em pérola, com a mesma luz que o manifesto tem no
+   topo, cuja opacidade é o quanto a tela já clareou. Ancorada no pé do palco,
+   onde encosta na seção seguinte, e mais alta que ele pela diferença entre a
+   janela grande e a pequena do celular. */
+.virada {
+  position: absolute;
+  inset: auto 0 0;
+  z-index: 2;
+  height: calc(100% + 100lvh - 100svh);
+  background:
+    radial-gradient(80% 60% at 14% 100%, rgb(255 255 255 / 0.75), transparent 68%),
+    var(--pearl);
+  opacity: var(--hero-glow, 0);
+  pointer-events: none;
+}
+
 /* ---------- Entrada ---------- */
 
 /* Só CSS: acontece mesmo que o JavaScript demore ou falhe, e sempre termina com
    tudo à vista e sem nenhuma animação aplicada. Segue a ordem de leitura
-   (título, texto, botão, selos); a lente assenta por trás, mais devagar.
-   `--i` é a posição do elemento dentro do seu grupo.
+   (título, texto, botão, selos). `--i` é a posição do elemento no seu grupo.
 
-   Nenhum texto nasce com opacidade zero nem cortado: o Chrome só conta para o
-   LCP o texto que foi pintado com alguma opacidade, e o que nasce invisível
-   entraria na conta só no fim da própria animação, segundos depois. Por isso
-   quem espera a sua vez espera com opacidade 0,002: nada se vê, e a primeira
-   pintura já vale. */
+   Quem espera a sua vez espera com opacidade zero. Para o Chrome, um texto só
+   conta para o LCP quando é pintado visível, e ele só repinta um texto animado
+   quando a animação termina: o LCP desta página é o instante em que termina a
+   entrada do maior bloco de texto do hero. Por isso as entradas de texto usam a
+   curva sem cauda (--ease-reveal-cut, ver globals.css): o movimento é o mesmo
+   de antes e acaba em 62% do tempo. */
 @media (prefers-reduced-motion: no-preference) {
   /* Máscara de cada linha do título, com folga para acentos, descendentes e a
      inclinação do itálico. É um recorte, e não `overflow` com padding: não
-     pode mexer na posição das linhas, que é a mesma com e sem movimento. */
+     pode mexer na posição das linhas, que é a mesma com e sem movimento. E é
+     uma animação que só segura o valor: quando a linha chega, a máscara deixa
+     de existir e não corta mais nada que o título venha a fazer depois. */
   .line {
-    clip-path: inset(-0.12em -0.1em -0.3em);
-  }
-
-  /* A linha espera a sua vez no lugar e, no instante em que a espera termina,
-     passa a subir de trás da máscara, já opaca. Esperar no lugar, e não
-     escondida sob a máscara, é o que mantém o título na conta do LCP: texto
-     que nasce cortado é descartado de vez. */
-  .lineText {
     --wait: calc(160ms + var(--i) * 110ms);
 
-    animation:
-      lineVeil var(--wait) step-end,
-      lineRise 1.3s var(--ease-reveal) var(--wait);
+    animation: lineMask calc(var(--wait) + 1.3s * var(--reveal-cut)) step-end;
+  }
+
+  /* A linha espera invisível e, no instante em que a espera termina, sobe de
+     trás da máscara, já opaca. */
+  .lineText {
+    animation: lineRise calc(1.3s * var(--reveal-cut)) var(--ease-reveal-cut) var(--wait) backwards;
   }
 
   .lead {
-    animation: riseIn 1.1s var(--ease-reveal) 600ms backwards;
+    animation: riseIn calc(1.1s * var(--reveal-cut)) var(--ease-reveal-cut) 600ms backwards;
   }
 
   .cta {
-    animation: riseIn 1.1s var(--ease-reveal) 720ms backwards;
-  }
-
-  .object::before {
-    animation: fadeIn 2.6s ease-out backwards;
-  }
-
-  /* A lente acende devagar, por trás do título, enquanto assenta no lugar. */
-  .lensFallback {
-    animation:
-      lensFade 1.6s cubic-bezier(0.3, 0, 0.3, 1) 80ms backwards,
-      lensSettle 2.4s var(--ease-reveal) 80ms backwards;
-  }
-
-  .caption {
-    animation: fadeIn 1.2s ease-out 1.3s backwards;
+    animation: riseIn calc(1.1s * var(--reveal-cut)) var(--ease-reveal-cut) 720ms backwards;
   }
 
   /* A linha dos selos se desenha da esquerda para a direita. */
@@ -428,55 +326,31 @@
   }
 
   .trustItem {
-    animation: riseIn 1s var(--ease-reveal) calc(800ms + var(--i) * 90ms) backwards;
+    animation: riseIn calc(1s * var(--reveal-cut)) var(--ease-reveal-cut) calc(800ms + var(--i) * 90ms) backwards;
   }
 }
 
-@keyframes lineVeil {
+@keyframes lineMask {
   from {
-    opacity: 0.002;
-  }
-
-  to {
-    opacity: 1;
+    clip-path: inset(-0.12em -0.1em -0.3em);
   }
 }
 
 @keyframes lineRise {
   from {
+    opacity: 0;
     transform: translateY(140%);
   }
 
-  to {
-    transform: none;
+  1% {
+    opacity: 1;
   }
 }
 
 @keyframes riseIn {
   from {
-    opacity: 0.002;
-    transform: translateY(18px);
-  }
-}
-
-@keyframes fadeIn {
-  from {
-    opacity: 0.002;
-  }
-}
-
-/* A lente não é texto: pode partir de opacidade zero. */
-@keyframes lensFade {
-  from {
     opacity: 0;
-  }
-}
-
-/* Chega um pouco menor e menos inclinada. */
-@keyframes lensSettle {
-  from {
-    scale: 0.9;
-    rotate: 5deg;
+    transform: translateY(18px);
   }
 }
 
