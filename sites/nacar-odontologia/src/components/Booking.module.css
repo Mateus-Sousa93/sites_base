@@ -1,0 +1,162 @@
+.section {
+  padding-block: clamp(96px, 11vw, 176px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(16px, 2vw, 32px);
+  align-items: start;
+}
+
+.form {
+  grid-column: 1 / span 6;
+}
+
+.head {
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.choices {
+  display: grid;
+  gap: clamp(24px, 3vw, 36px);
+  margin-top: clamp(36px, 4vw, 56px);
+}
+
+.group {
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.group legend {
+  padding: 0;
+  margin-bottom: 14px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.option {
+  min-height: 48px;
+  padding: 0 20px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: none;
+  cursor: pointer;
+  transition:
+    background-color 220ms ease,
+    color 220ms ease,
+    border-color 220ms ease;
+}
+
+.option:hover {
+  border-color: var(--fg);
+}
+
+.option[aria-pressed="true"] {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.cta {
+  justify-self: start;
+  min-height: 64px;
+  padding-inline: 34px;
+  font-size: 1.0625rem;
+}
+
+.cta svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Cartão escuro com endereço, horários e mapa. */
+.visit {
+  grid-column: 8 / -1;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.2vw, 36px);
+  background: var(--ink);
+  color: var(--pearl);
+}
+
+.info {
+  display: grid;
+  gap: 20px;
+  padding: clamp(24px, 3vw, 44px);
+}
+
+.info h3 {
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  letter-spacing: -0.035em;
+}
+
+.info address {
+  font-style: normal;
+  line-height: 1.5;
+  color: rgb(244 241 236 / 0.72);
+}
+
+.hours {
+  border-top: 1px solid rgb(244 241 236 / 0.16);
+}
+
+.hours li {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding-block: 12px;
+  border-bottom: 1px solid rgb(244 241 236 / 0.16);
+  font-size: 0.9375rem;
+}
+
+.hours li span:last-child {
+  color: rgb(244 241 236 / 0.72);
+}
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+}
+
+.links a {
+  font-weight: 500;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 6px;
+}
+
+.map {
+  width: 100%;
+  height: clamp(220px, 24vw, 320px);
+  border: 0;
+  /* O mapa entra no clima do cartão: dessaturado e escurecido. */
+  filter: grayscale(1) contrast(1.05) brightness(0.92);
+}
+
+@media (max-width: 899px) {
+  .grid {
+    row-gap: 48px;
+  }
+
+  .form,
+  .visit {
+    grid-column: 1 / -1;
+  }
+
+  .cta {
+    justify-self: stretch;
+  }
+}

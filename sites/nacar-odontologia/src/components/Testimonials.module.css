@@ -1,0 +1,123 @@
+.section {
+  padding-block: clamp(96px, 11vw, 176px);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(16px, 2vw, 32px);
+  align-items: start;
+}
+
+.side {
+  position: sticky;
+  top: calc(var(--header-h) + 24px);
+  grid-column: 1 / span 5;
+  display: grid;
+  gap: clamp(32px, 4vw, 56px);
+}
+
+.head {
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.photo {
+  --reveal-radius: clamp(20px, 2.2vw, 36px);
+  position: relative;
+  aspect-ratio: 5 / 4;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.2vw, 36px);
+  background: var(--ink-soft);
+}
+
+.photo img {
+  object-fit: cover;
+  object-position: 50% 20%;
+}
+
+.rating {
+  position: absolute;
+  left: 18px;
+  bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 14px;
+  border-radius: 999px;
+  background: rgb(244 241 236 / 0.9);
+  color: var(--ink);
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.rating strong {
+  font-weight: 600;
+}
+
+.stars {
+  color: #c8963e;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+}
+
+.list {
+  grid-column: 7 / -1;
+  display: grid;
+  gap: clamp(16px, 2vw, 28px);
+}
+
+.quote {
+  display: grid;
+  gap: clamp(24px, 3vw, 40px);
+  padding: clamp(24px, 3vw, 48px);
+  border: 1px solid var(--rule);
+  border-radius: clamp(20px, 2.2vw, 36px);
+  background: var(--ink-soft);
+}
+
+.quote blockquote p {
+  font-size: clamp(1.375rem, 2.3vw, 2.125rem);
+  line-height: 1.22;
+  letter-spacing: -0.03em;
+  text-wrap: pretty;
+}
+
+.quote blockquote p::before {
+  content: "“";
+}
+
+.quote blockquote p::after {
+  content: "”";
+}
+
+.quote figcaption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 14px;
+  font-size: 0.9375rem;
+}
+
+.quote figcaption strong {
+  font-weight: 500;
+}
+
+.quote figcaption span {
+  color: var(--muted);
+}
+
+@media (max-width: 899px) {
+  .grid {
+    row-gap: 32px;
+  }
+
+  .side {
+    position: static;
+    grid-column: 1 / -1;
+  }
+
+  .list {
+    grid-column: 1 / -1;
+  }
+}

@@ -335,3 +335,66 @@ button {
   overflow: visible !important;
   clip-path: inset(-0.12em -0.1em -0.18em);
 }
+
+/* Entrada de blocos (componente Reveal). Só esconde depois de armado pelo
+   script e só com movimento ligado; sem JS o conteúdo fica como está. */
+html[data-motion="on"] [data-reveal][data-armed] {
+  transition:
+    opacity 900ms var(--ease-reveal) var(--reveal-delay, 0ms),
+    transform 1200ms var(--ease-reveal) var(--reveal-delay, 0ms),
+    clip-path 1300ms var(--ease-reveal) var(--reveal-delay, 0ms);
+}
+
+html[data-motion="on"] [data-reveal="up"][data-armed]:not([data-inview]) {
+  opacity: 0;
+  transform: translateY(36px);
+}
+
+html[data-motion="on"] [data-reveal="image"][data-armed] {
+  clip-path: inset(0 0 0 0 round var(--reveal-radius, 0px));
+}
+
+html[data-motion="on"] [data-reveal="image"][data-armed]:not([data-inview]) {
+  clip-path: inset(100% 0 0 0 round var(--reveal-radius, 0px));
+}
+
+html[data-motion="on"] [data-reveal="image"][data-armed] img {
+  transition: transform 1700ms var(--ease-reveal) var(--reveal-delay, 0ms);
+}
+
+html[data-motion="on"] [data-reveal="image"][data-armed]:not([data-inview]) img {
+  transform: scale(1.14);
+}
+
+/* Cabeçalho de seção: rótulo, título em duas partes e texto de apoio. */
+.section-title {
+  font-size: clamp(2.5rem, 6vw, 6rem);
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.section-title em {
+  display: block;
+  font-family: var(--font-serif);
+  font-size: 1.06em;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--accent, inherit);
+}
+
+.section-lead {
+  max-width: 34em;
+  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
+  line-height: 1.5;
+  color: var(--muted);
+}
+
+[data-theme="pearl"] {
+  --accent: #4f6f86;
+}
+
+[data-theme="ink"] {
+  --accent: var(--ice);
+}

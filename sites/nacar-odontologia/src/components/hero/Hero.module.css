@@ -1,361 +1,355 @@
-/* O fundo do hero é sempre tinta, mesmo depois de a seção se declarar pérola
-   (data-theme troca no meio da virada, para o cabeçalho acompanhar): quem
-   clareia a tela é a camada da virada, aos poucos. */
-.hero[data-stage] {
+.hero {
   position: relative;
-  isolation: isolate;
   overflow: clip;
-  background-color: var(--ink);
+  /* Luz quente vinda do canto, como sol de manhã na recepção. */
+  background-image: radial-gradient(70% 80% at 0% 0%, rgb(255 255 255 / 0.9), transparent 62%);
 }
 
-/* A primeira tela inteira: o cabeçalho fixo ocupa o topo e o conteúdo, o resto. */
-.stage {
-  position: relative;
-  isolation: isolate;
-  padding-top: var(--header-h);
+/* Foto principal: um quadro alto à direita, do cabeçalho ao pé da tela. */
+.media {
+  position: absolute;
+  top: calc(var(--header-h) + 8px);
+  right: var(--gutter);
+  bottom: clamp(20px, 3.5vh, 40px);
+  width: min(46vw, 820px);
 }
 
-/* Atmosfera sobre a tinta: grão fino, luz fria atrás do objeto e um respiro
-   mais claro no canto de baixo. Ela some sob o cabeçalho, que assim se funde
-   ao fundo no topo da página. */
-.stage::before {
-  content: "";
+.photo {
   position: absolute;
   inset: 0;
-  z-index: -1;
-  background-image:
-    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0.06 0 0 0 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"),
-    radial-gradient(58% 72% at 80% 46%, rgb(201 221 232 / 0.1), transparent 72%),
-    radial-gradient(80% 50% at 0% 110%, rgb(201 221 232 / 0.07), transparent 70%);
-  -webkit-mask-image: linear-gradient(to bottom, transparent var(--header-h), #000 calc(var(--header-h) + 160px));
-  mask-image: linear-gradient(to bottom, transparent var(--header-h), #000 calc(var(--header-h) + 160px));
-  pointer-events: none;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.2vw, 36px);
+  background: var(--pearl-deep);
 }
 
-.layout {
-  display: grid;
-  min-height: calc(100svh - var(--header-h));
-  grid-template-columns: max-content minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) auto;
-  grid-template-areas:
-    "copy object"
-    "trust trust";
-  column-gap: clamp(24px, 3vw, 56px);
+.photo img {
+  object-fit: cover;
+  object-position: 38% 50%;
 }
 
-/* O objeto do hero (ver HeroObject) entra na sua célula. */
-.layout > [data-hero-object] {
-  grid-area: object;
+/* Segundo quadro, menor, cruzando a borda da foto principal. */
+.inset {
+  position: absolute;
+  left: clamp(-96px, -6vw, -48px);
+  bottom: clamp(32px, 7vh, 72px);
+  width: clamp(140px, 14vw, 220px);
+  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  border: 6px solid var(--pearl);
+  border-radius: clamp(16px, 1.6vw, 24px);
+  background: var(--pearl-deep);
+  box-shadow: 0 30px 60px -30px rgb(11 16 32 / 0.45);
 }
 
-/* ---------- Texto ---------- */
-
-.copy {
-  grid-area: copy;
-  align-self: end;
-  position: relative;
-  z-index: 1;
-  padding-block: clamp(20px, 4svh, 56px) clamp(28px, 5.5svh, 72px);
+.inset img {
+  object-fit: cover;
+  object-position: 58% 40%;
 }
 
-/* O corpo do título segue a largura da janela e, em janela baixa, a altura: o
-   hero inteiro cabe na primeira tela, que é tudo o que se vê dele enquanto o
-   palco está grudado. */
-.title {
-  font-size: clamp(2.75rem, min(9vw, 31.4svh - 118px), 9rem);
-  font-weight: 500;
-  line-height: 0.92;
-  letter-spacing: -0.04em;
-}
-
-.line {
-  display: block;
+.rating {
+  position: absolute;
+  top: clamp(14px, 1.6vw, 24px);
+  left: clamp(14px, 1.6vw, 24px);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 16px 10px 14px;
+  border-radius: 999px;
+  background: rgb(244 241 236 / 0.86);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  color: var(--ink);
+  font-size: 0.875rem;
+  line-height: 1;
   white-space: nowrap;
 }
 
-.lineText {
-  display: block;
+.rating strong {
+  font-weight: 600;
 }
 
-/* Palavra-chave em serifa itálica. O olho da serifa é menor que o da grotesca:
-   o corpo sobe um pouco e a entrelinha compensa. */
+.stars {
+  color: #c8963e;
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+}
+
+.inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: clamp(32px, 6vh, 72px);
+  min-height: 100svh;
+  padding-top: calc(var(--header-h) + clamp(28px, 9vh, 120px));
+  padding-bottom: clamp(20px, 3.5vh, 40px);
+  /* O texto não entra na área da foto. */
+  pointer-events: none;
+}
+
+.inner > * {
+  pointer-events: auto;
+}
+
+.copy {
+  width: min(100%, calc(100vw - min(46vw, 820px) - var(--gutter) * 2 - clamp(56px, 7vw, 112px)));
+}
+
+.eyebrow {
+  margin-bottom: clamp(18px, 2.4vw, 32px);
+}
+
+.title {
+  font-size: clamp(2.75rem, 5.6vw, 6.5rem);
+  line-height: 0.94;
+  letter-spacing: -0.045em;
+}
+
+/* Cada linha é uma máscara: o texto sobe de dentro dela na entrada. */
+.line {
+  display: block;
+  clip-path: inset(-0.14em -0.2em -0.2em -0.2em);
+}
+
+.line > span {
+  display: inline-block;
+}
+
 .accent {
   font-family: var(--font-serif);
   font-size: 1.1em;
   font-style: italic;
   font-weight: 400;
-  line-height: 0.86;
-  letter-spacing: -0.025em;
-  color: var(--ice);
+  line-height: 0.92;
+  letter-spacing: -0.02em;
+  color: var(--accent);
 }
 
 .lead {
-  max-width: 31rem;
-  margin-top: clamp(26px, 4.4svh, 48px);
-  font-size: clamp(1rem, 1.3vw, 1.1875rem);
+  max-width: 30em;
+  margin-top: clamp(20px, 2.4vw, 36px);
+  font-size: clamp(1.0625rem, 1.3vw, 1.3125rem);
   line-height: 1.5;
-  color: color-mix(in srgb, var(--fg) 76%, transparent);
+  color: var(--muted);
 }
 
-.cta {
-  margin-top: clamp(22px, 3.4svh, 34px);
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: clamp(24px, 2.8vw, 40px);
 }
-
-.cta:hover svg {
-  transform: translate(2px, -2px);
-}
-
-/* ---------- Selos de confiança ---------- */
 
 .trust {
-  grid-area: trust;
-  position: relative;
-  z-index: 1;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  display: flex;
+  gap: clamp(20px, 3vw, 48px);
+  width: min(100%, calc(100vw - min(46vw, 820px) - var(--gutter) * 2 - clamp(56px, 7vw, 112px)));
+  padding-top: clamp(16px, 1.8vw, 24px);
   border-top: 1px solid var(--rule);
 }
 
 /* No DOM o rótulo vem antes do valor (dt, dd); na tela o valor vem primeiro. */
-.trustItem {
+.trust > div {
   display: flex;
-  flex-direction: row-reverse;
-  justify-content: flex-end;
-  align-items: baseline;
-  gap: 12px;
-  padding: 22px 24px 26px 0;
+  flex-direction: column-reverse;
+  gap: 4px;
 }
 
-.trustItem + .trustItem {
-  padding-left: 24px;
-  border-left: 1px solid var(--rule);
-}
-
-.trustItem dd {
-  font-size: 1.375rem;
-  font-weight: 500;
-  line-height: 1.1;
-  letter-spacing: -0.03em;
+.trust dd {
+  font-size: clamp(1.375rem, 2vw, 2rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
   white-space: nowrap;
 }
 
-.trustItem dt {
-  font-size: 0.875rem;
+.trust dt {
+  font-size: 0.8125rem;
   line-height: 1.35;
   color: var(--muted);
 }
 
-/* ---------- Celular e tablet em pé: objeto em cima, texto embaixo ---------- */
-
-@media (max-width: 899px) {
-  .layout {
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(132px, 1fr) auto auto;
-    grid-template-areas:
-      "object"
-      "copy"
-      "trust";
-  }
-
-  .copy {
-    padding-block: 4px 28px;
-  }
-
-  .lead {
-    max-width: 36ch;
-    margin-top: 18px;
-  }
-
-  .cta {
-    margin-top: 22px;
-  }
-
-  .trustItem {
-    flex-direction: column-reverse;
-    justify-content: flex-end;
-    align-items: flex-start;
-    gap: 4px;
-    padding: 14px 10px calc(18px + env(safe-area-inset-bottom)) 0;
-  }
-
-  .trustItem + .trustItem {
-    padding-left: 12px;
-  }
-
-  .trustItem:last-child {
-    padding-right: 0;
-  }
-
-  .trustItem dd {
-    font-size: 1.25rem;
-  }
-
-  .trustItem dt {
-    font-size: 0.75rem;
-  }
-}
-
-@media (max-width: 599px) {
-  .cta {
-    width: 100%;
-  }
-}
-
-/* ---------- Palco ---------- */
-
-/* Com movimento ligado e janela de pelo menos 520 px de altura (a regra dos
-   palcos, ver useStageProgress), o hero vira um palco: a seção tem três telas e
-   meia e a primeira tela fica grudada enquanto a página rola por dentro dela.
-   O progresso desse scroll chega pelo componente em três propriedades:
-     --hero-p     progresso do palco, de 0 a 1;
-     --hero-exit  quanto o texto já saiu, de 0 a 1;
-     --hero-glow  quanto a tela já clareou, de 0 a 1.
-
-   A tela gruda pelo pé (a seção empilha o conteúdo embaixo e o `sticky` o segura
-   no pé da janela). Quando o conteúdo cabe na janela, dá no mesmo que grudar
-   pelo topo. Quando é mais alto que ela (celular baixo), a página primeiro rola
-   até mostrar o pé do conteúdo e só então gruda: nada fica inalcançável. */
-@media (min-height: 520px) {
-  html[data-motion="on"] .hero {
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-    height: 350svh;
-  }
-
-  html[data-motion="on"] .stage {
-    position: sticky;
-    bottom: 0;
-    flex: none;
-  }
-
-  /* O texto sai da frente da lente: apaga e sobe, o bloco inteiro. O título
-     abre um pouco ao sair (a primeira linha sobe mais que a última). */
-  html[data-motion="on"] .copy,
-  html[data-motion="on"] .trust {
-    opacity: calc(1 - var(--hero-exit, 0));
-    will-change: opacity, transform;
-  }
-
-  html[data-motion="on"] .copy {
-    transform: translate3d(0, calc(var(--hero-exit, 0) * -7svh), 0);
-  }
-
-  html[data-motion="on"] .trust {
-    transform: translate3d(0, calc(var(--hero-exit, 0) * -3svh), 0);
-  }
-
-  html[data-motion="on"] .line {
-    transform: translate3d(0, calc(var(--hero-exit, 0) * (var(--i) - 2) * 2.2svh), 0);
-  }
-
-  /* Depois de sair, o texto fica inerte (atributo posto pelo componente) e nem
-     é pintado. */
-  html[data-motion="on"] :is(.copy, .trust)[inert] {
-    visibility: hidden;
-  }
-}
-
-/* A virada: uma cobertura em pérola, com a mesma luz que o manifesto tem no
-   topo, cuja opacidade é o quanto a tela já clareou. Ancorada no pé do palco,
-   onde encosta na seção seguinte, e mais alta que ele pela diferença entre a
-   janela grande e a pequena do celular. */
-.virada {
-  position: absolute;
-  inset: auto 0 0;
-  z-index: 2;
-  height: calc(100% + 100lvh - 100svh);
-  background:
-    radial-gradient(80% 60% at 14% 100%, rgb(255 255 255 / 0.75), transparent 68%),
-    var(--pearl);
-  opacity: var(--hero-glow, 0);
-  pointer-events: none;
-}
-
-/* ---------- Entrada ---------- */
-
-/* Só CSS: acontece mesmo que o JavaScript demore ou falhe, e sempre termina com
-   tudo à vista e sem nenhuma animação aplicada. Segue a ordem de leitura
-   (título, texto, botão, selos). `--i` é a posição do elemento no seu grupo.
-
-   Quem espera a sua vez espera com opacidade zero. Para o Chrome, um texto só
-   conta para o LCP quando é pintado visível, e ele só repinta um texto animado
-   quando a animação termina: o LCP desta página é o instante em que termina a
-   entrada do maior bloco de texto do hero. Por isso as entradas de texto usam a
-   curva sem cauda (--ease-reveal-cut, ver globals.css): o movimento é o mesmo
-   de antes e acaba em 62% do tempo. */
+/* Entrada: só com movimento permitido. Sem isso tudo já está no lugar. */
 @media (prefers-reduced-motion: no-preference) {
-  /* Máscara de cada linha do título, com folga para acentos, descendentes e a
-     inclinação do itálico. É um recorte, e não `overflow` com padding: não
-     pode mexer na posição das linhas, que é a mesma com e sem movimento. E é
-     uma animação que só segura o valor: quando a linha chega, a máscara deixa
-     de existir e não corta mais nada que o título venha a fazer depois. */
-  .line {
-    --wait: calc(160ms + var(--i) * 110ms);
-
-    animation: lineMask calc(var(--wait) + 1.3s * var(--reveal-cut)) step-end;
+  .photo {
+    animation: open 1400ms var(--ease-reveal) 80ms backwards;
   }
 
-  /* A linha espera invisível e, no instante em que a espera termina, sobe de
-     trás da máscara, já opaca. */
-  .lineText {
-    animation: lineRise calc(1.3s * var(--reveal-cut)) var(--ease-reveal-cut) var(--wait) backwards;
+  .photo img {
+    animation:
+      settle 1900ms var(--ease-reveal) 80ms backwards,
+      drift 22s ease-in-out 2s infinite alternate;
+  }
+
+  .inset {
+    animation: rise 1100ms var(--ease-reveal) 700ms backwards;
+  }
+
+  .rating {
+    animation: fade 800ms ease 1100ms backwards;
+  }
+
+  .eyebrow {
+    animation: fade 700ms ease 100ms backwards;
+  }
+
+  .line > span {
+    animation: lift 1100ms var(--ease-reveal) backwards;
+  }
+
+  .line:nth-child(1) > span {
+    animation-delay: 140ms;
+  }
+
+  .line:nth-child(2) > span {
+    animation-delay: 230ms;
+  }
+
+  .line:nth-child(3) > span {
+    animation-delay: 320ms;
   }
 
   .lead {
-    animation: riseIn calc(1.1s * var(--reveal-cut)) var(--ease-reveal-cut) 600ms backwards;
+    animation: rise 900ms var(--ease-reveal) 520ms backwards;
   }
 
-  .cta {
-    animation: riseIn calc(1.1s * var(--reveal-cut)) var(--ease-reveal-cut) 720ms backwards;
+  .actions {
+    animation: rise 900ms var(--ease-reveal) 640ms backwards;
   }
 
-  /* A linha dos selos se desenha da esquerda para a direita. */
   .trust {
-    border-top-color: transparent;
-  }
-
-  .trust::before {
-    content: "";
-    position: absolute;
-    inset: -1px 0 auto;
-    height: 1px;
-    background: var(--rule);
-    transform-origin: 0 50%;
-    animation: ruleDraw 1.6s var(--ease-reveal) 640ms backwards;
-  }
-
-  .trustItem {
-    animation: riseIn calc(1s * var(--reveal-cut)) var(--ease-reveal-cut) calc(800ms + var(--i) * 90ms) backwards;
+    animation: fade 900ms ease 900ms backwards;
   }
 }
 
-@keyframes lineMask {
+@keyframes open {
   from {
-    clip-path: inset(-0.12em -0.1em -0.3em);
+    clip-path: inset(100% 0 0 0 round 36px);
+  }
+
+  to {
+    clip-path: inset(0 0 0 0 round 36px);
   }
 }
 
-@keyframes lineRise {
+@keyframes settle {
+  from {
+    transform: scale(1.16);
+  }
+
+  to {
+    transform: scale(1);
+  }
+}
+
+@keyframes drift {
+  from {
+    transform: scale(1);
+  }
+
+  to {
+    transform: scale(1.06);
+  }
+}
+
+@keyframes lift {
+  from {
+    transform: translateY(112%);
+  }
+
+  to {
+    transform: none;
+  }
+}
+
+@keyframes rise {
   from {
     opacity: 0;
-    transform: translateY(140%);
+    transform: translateY(26px);
   }
 
-  1% {
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
     opacity: 1;
   }
 }
 
-@keyframes riseIn {
-  from {
-    opacity: 0;
-    transform: translateY(18px);
+/* Tablet e celular: a foto vai para cima, o texto vem em seguida. */
+@media (max-width: 899px) {
+  /* O respiro do cabeçalho é padding da seção (margem no primeiro filho
+     colapsaria e deixaria o fundo da página aparecer atrás do cabeçalho). */
+  .hero {
+    padding-top: calc(var(--header-h) + 4px);
+  }
+
+  .media {
+    position: relative;
+    top: auto;
+    right: auto;
+    bottom: auto;
+    width: auto;
+    height: min(52svh, 520px);
+    margin: 0 var(--gutter);
+  }
+
+  .photo img {
+    object-position: 36% 40%;
+  }
+
+  .inset {
+    left: auto;
+    right: 14px;
+    bottom: -28px;
+    width: clamp(96px, 27vw, 150px);
+    border-width: 4px;
+  }
+
+  .inner {
+    min-height: 0;
+    gap: 36px;
+    padding-top: 44px;
+    padding-bottom: 40px;
+  }
+
+  .copy,
+  .trust {
+    width: 100%;
+  }
+
+  .title {
+    font-size: clamp(2.625rem, 12.4vw, 4.75rem);
+  }
+
+  .actions {
+    flex-direction: column;
+  }
+
+  .actions :global(.button) {
+    width: 100%;
+  }
+
+  .trust {
+    justify-content: space-between;
+    gap: 12px;
   }
 }
 
-@keyframes ruleDraw {
-  from {
-    transform: scaleX(0);
+/* Telas baixas (notebook pequeno, celular deitado): menos respiro no topo. */
+@media (min-width: 900px) and (max-height: 720px) {
+  .inner {
+    padding-top: calc(var(--header-h) + 24px);
+  }
+
+  .title {
+    font-size: clamp(2.5rem, 4.6vw, 4.5rem);
   }
 }

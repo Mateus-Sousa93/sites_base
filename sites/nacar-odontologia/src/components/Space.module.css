@@ -1,0 +1,137 @@
+.section {
+  padding-block: clamp(96px, 11vw, 176px);
+  border-top: 1px solid var(--rule);
+  overflow: hidden;
+}
+
+.head {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: clamp(16px, 2vw, 32px);
+  align-items: end;
+}
+
+.heading {
+  grid-column: 1 / span 7;
+  display: grid;
+  gap: clamp(18px, 2vw, 28px);
+}
+
+.side {
+  grid-column: 9 / -1;
+  display: grid;
+  gap: clamp(20px, 2.4vw, 32px);
+}
+
+.controls {
+  display: flex;
+  gap: 10px;
+}
+
+.controls button {
+  display: grid;
+  place-items: center;
+  width: 56px;
+  height: 56px;
+  border: 1px solid var(--rule);
+  border-radius: 50%;
+  background: none;
+  cursor: pointer;
+  transition:
+    background-color 240ms ease,
+    color 240ms ease,
+    border-color 240ms ease;
+}
+
+.controls button:hover {
+  border-color: var(--fg);
+  background: var(--fg);
+  color: var(--bg);
+}
+
+.controls svg {
+  width: 20px;
+  height: 20px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* Trilho: rolagem horizontal nativa com encaixe. A primeira foto alinha com a
+   margem do site e as seguintes sangram para a direita. */
+.track {
+  display: flex;
+  column-gap: clamp(12px, 2vw, 32px);
+  margin-top: clamp(48px, 6vw, 88px);
+  padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2));
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scroll-snap-type: x mandatory;
+  scroll-padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2));
+  scrollbar-width: none;
+}
+
+.track::-webkit-scrollbar {
+  display: none;
+}
+
+.track li {
+  flex: none;
+  width: min(62vw, 980px);
+  scroll-snap-align: start;
+}
+
+.shot {
+  --reveal-radius: clamp(20px, 2.2vw, 36px);
+  position: relative;
+  aspect-ratio: 16 / 10;
+  overflow: hidden;
+  border-radius: clamp(20px, 2.2vw, 36px);
+  background: var(--pearl-deep);
+}
+
+.shot img {
+  object-fit: cover;
+  transition: transform 1400ms var(--ease-reveal);
+}
+
+.track li:hover .shot img {
+  transform: scale(1.04);
+}
+
+.track p {
+  display: flex;
+  gap: 14px;
+  margin-top: 16px;
+  font-size: 0.9375rem;
+}
+
+.track p span {
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+}
+
+@media (max-width: 899px) {
+  .heading,
+  .side {
+    grid-column: 1 / -1;
+  }
+
+  .side {
+    margin-top: 24px;
+  }
+
+  .controls {
+    display: none;
+  }
+
+  .track li {
+    width: 84vw;
+  }
+
+  .shot {
+    aspect-ratio: 4 / 3;
+  }
+}
