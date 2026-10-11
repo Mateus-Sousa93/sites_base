@@ -5,20 +5,14 @@ import styles from "./Process.module.css";
 
 // Como funciona: as quatro etapas do planejamento, ao lado de uma foto do consultório.
 export function Process() {
-  const { label, title, titleAccent, lead, photo, card, steps } = site.process;
+  const { label, title, titleAccent, lead, photo, steps } = site.process;
 
   return (
-    <section id="planejamento" data-theme="pearl" className={styles.section} aria-labelledby="planejamento-title">
+    <section id="planejamento" data-theme="pearl" className="screen" aria-labelledby="planejamento-title">
       <div className={`container ${styles.grid}`}>
-        <div className={styles.media}>
-          <Reveal kind="image" className={styles.photo}>
-            <Image src={photo.src} alt={photo.alt} fill placeholder="blur" sizes="(max-width: 899px) 100vw, 44vw" />
-          </Reveal>
-          <Reveal delay={260} className={styles.card}>
-            <strong>{card.value}</strong>
-            <span>{card.label}</span>
-          </Reveal>
-        </div>
+        <Reveal kind="image" className={styles.photo}>
+          <Image src={photo.src} alt={photo.alt} fill placeholder="blur" sizes="(max-width: 899px) 100vw, 40vw" />
+        </Reveal>
 
         <div className={styles.copy}>
           <Reveal className={styles.head}>
@@ -32,7 +26,7 @@ export function Process() {
           <ol className={styles.steps}>
             {steps.map((step, index) => (
               <li key={step.title}>
-                <Reveal delay={index * 80} className={styles.step}>
+                <Reveal delay={index * 70} className={styles.step}>
                   <span className={styles.number} aria-hidden="true">
                     {String(index + 1).padStart(2, "0")}
                   </span>

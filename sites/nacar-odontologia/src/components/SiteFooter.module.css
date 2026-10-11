@@ -1,30 +1,27 @@
 .footer {
-  padding-top: clamp(64px, 8vw, 120px);
+  padding-top: clamp(40px, 7vh, 80px);
   overflow: hidden;
 }
 
 .top {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
-  row-gap: 32px;
+  grid-template-columns: minmax(0, 6fr) minmax(0, 3fr) minmax(0, 3fr);
+  column-gap: clamp(24px, 4vw, 64px);
+  row-gap: 28px;
 }
 
 .tagline {
-  grid-column: 1 / span 5;
-  max-width: 16em;
-  font-size: clamp(1.5rem, 2.6vw, 2.5rem);
+  max-width: 15em;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, min(2.4vw, 4.4vh), 2.25rem);
   line-height: 1.1;
-  letter-spacing: -0.035em;
-}
-
-.top nav {
-  grid-column: 7 / span 3;
+  letter-spacing: -0.01em;
 }
 
 .links {
   display: grid;
-  gap: 10px;
+  gap: 8px;
+  font-size: 0.9375rem;
 }
 
 .links a,
@@ -39,24 +36,26 @@
 }
 
 .contact {
-  grid-column: 10 / -1;
   display: grid;
   align-content: start;
-  gap: 12px;
+  gap: 10px;
+  font-size: 0.9375rem;
 }
 
 .contact p {
   color: var(--muted);
 }
 
-/* Nome gigante, de borda a borda. */
+/* O nome grande, em madrepérola. */
 .wordmark {
-  margin-top: clamp(32px, 5vw, 72px);
+  margin-top: clamp(24px, 5vh, 56px);
   padding-inline: var(--gutter);
-  font-size: clamp(6rem, 30vw, 34rem);
-  font-weight: 500;
-  line-height: 0.78;
-  letter-spacing: -0.07em;
+  font-family: var(--font-serif);
+  font-size: clamp(5rem, min(22vw, 34vh), 20rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 0.82;
+  letter-spacing: -0.03em;
   white-space: nowrap;
   background: var(--nacre);
   background-size: 160% 100%;
@@ -83,10 +82,10 @@
   flex-wrap: wrap;
   justify-content: space-between;
   gap: 8px 32px;
-  margin-top: clamp(24px, 3vw, 48px);
-  padding-block: 20px calc(20px + env(safe-area-inset-bottom));
+  margin-top: clamp(20px, 3vh, 36px);
+  padding-block: 18px calc(18px + env(safe-area-inset-bottom));
   border-top: 1px solid var(--rule);
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   color: var(--muted);
 }
 
@@ -95,13 +94,11 @@
 }
 
 @media (max-width: 899px) {
-  .tagline,
-  .top nav,
-  .contact {
-    grid-column: 1 / -1;
+  .top {
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .bottom {
-    padding-bottom: calc(96px + env(safe-area-inset-bottom));
+    padding-bottom: calc(88px + env(safe-area-inset-bottom));
   }
 }

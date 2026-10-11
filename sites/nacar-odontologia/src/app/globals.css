@@ -118,7 +118,7 @@ body {
   background: var(--ink);
   color: var(--pearl);
   font-family: var(--font-sans);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   line-height: 1.55;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -259,14 +259,14 @@ button {
   align-items: center;
   justify-content: center;
   gap: 14px;
-  min-height: 56px;
-  padding: 0 28px;
+  min-height: 50px;
+  padding: 0 24px;
   border: 1px solid transparent;
   border-radius: 999px;
   background: var(--fg);
   color: var(--bg);
   font-family: var(--font-sans);
-  font-size: 1rem;
+  font-size: 0.9375rem;
   font-weight: 500;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -366,28 +366,51 @@ html[data-motion="on"] [data-reveal="image"][data-armed]:not([data-inview]) img 
   transform: scale(1.14);
 }
 
+/* Bloco de uma tela: no desktop cada seção ocupa a janela inteira, com o
+   conteúdo centrado abaixo do cabeçalho. Os tamanhos de texto e de imagem
+   dentro dela levam a altura em conta (vh), para caber em telas baixas. No
+   celular e em janelas baixas a seção volta ao fluxo normal. */
+:root {
+  --title: clamp(2rem, min(3.7vw, 6.8vh), 3.875rem);
+  --pad-y: clamp(20px, 4.2vh, 56px);
+  --radius: clamp(14px, 1.4vw, 22px);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 100svh;
+  padding-block: calc(var(--header-h) + var(--pad-y)) var(--pad-y);
+}
+
+@media (max-width: 899px), (max-height: 599px) {
+  .screen {
+    min-height: 0;
+    padding-block: 80px 64px;
+  }
+}
+
 /* Cabeçalho de seção: rótulo, título em duas partes e texto de apoio. */
 .section-title {
-  font-size: clamp(2.5rem, 6vw, 6rem);
-  line-height: 0.96;
-  letter-spacing: -0.045em;
+  font-family: var(--font-serif);
+  font-size: var(--title);
+  font-weight: 400;
+  line-height: 0.98;
+  letter-spacing: -0.02em;
   text-wrap: balance;
 }
 
 .section-title em {
   display: block;
-  font-family: var(--font-serif);
-  font-size: 1.06em;
   font-style: italic;
-  font-weight: 400;
-  letter-spacing: -0.02em;
   color: var(--accent, inherit);
 }
 
 .section-lead {
-  max-width: 34em;
-  font-size: clamp(1.0625rem, 1.25vw, 1.25rem);
-  line-height: 1.5;
+  max-width: 36em;
+  font-size: clamp(0.9375rem, min(1.1vw, 2vh), 1.0625rem);
+  line-height: 1.55;
   color: var(--muted);
 }
 

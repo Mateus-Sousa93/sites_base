@@ -16,15 +16,8 @@ export function Treatments() {
   const [active, setActive] = useState(0);
 
   return (
-    <section id="tratamentos" data-theme="pearl" className={styles.section} aria-labelledby="tratamentos-title">
+    <section id="tratamentos" data-theme="pearl" className={`screen ${styles.section}`} aria-labelledby="tratamentos-title">
       <div className={`container ${styles.grid}`}>
-        <Reveal className={styles.head}>
-          <p className="eyebrow">{label}</p>
-          <h2 id="tratamentos-title" className="section-title">
-            {title} <em>{titleAccent}</em>
-          </h2>
-        </Reveal>
-
         <Reveal kind="image" className={styles.stage}>
           {items.map((item, index) => (
             <div key={item.id} className={styles.frame} data-active={index === active}>
@@ -34,6 +27,7 @@ export function Treatments() {
                 fill
                 placeholder="blur"
                 sizes="(max-width: 899px) 100vw, 42vw"
+                style={item.photo.focus ? { objectPosition: item.photo.focus } : undefined}
               />
             </div>
           ))}
@@ -42,7 +36,15 @@ export function Treatments() {
           </span>
         </Reveal>
 
-        <ol className={styles.list}>
+        <div className={styles.copy}>
+          <Reveal className={styles.head}>
+            <p className="eyebrow">{label}</p>
+            <h2 id="tratamentos-title" className="section-title">
+              {title} <em>{titleAccent}</em>
+            </h2>
+          </Reveal>
+
+          <ol className={styles.list}>
           {items.map((item, index) => {
             const open = index === active;
             return (
@@ -87,7 +89,8 @@ export function Treatments() {
               </li>
             );
           })}
-        </ol>
+          </ol>
+        </div>
       </div>
     </section>
   );

@@ -1,27 +1,19 @@
-.section {
-  padding-block: clamp(96px, 11vw, 176px);
-}
-
 .grid {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
-  align-items: start;
-}
-
-.form {
-  grid-column: 1 / span 6;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: clamp(32px, 6vw, 112px);
+  align-items: center;
 }
 
 .head {
   display: grid;
-  gap: clamp(18px, 2vw, 28px);
+  gap: clamp(12px, 2vh, 22px);
 }
 
 .choices {
   display: grid;
-  gap: clamp(24px, 3vw, 36px);
-  margin-top: clamp(36px, 4vw, 56px);
+  gap: clamp(16px, 2.8vh, 28px);
+  margin-top: clamp(20px, 4vh, 44px);
 }
 
 .group {
@@ -33,8 +25,8 @@
 
 .group legend {
   padding: 0;
-  margin-bottom: 14px;
-  font-size: 0.75rem;
+  margin-bottom: 10px;
+  font-size: 0.6875rem;
   font-weight: 500;
   letter-spacing: 0.16em;
   text-transform: uppercase;
@@ -48,11 +40,12 @@
 }
 
 .option {
-  min-height: 48px;
-  padding: 0 20px;
+  min-height: 42px;
+  padding: 0 18px;
   border: 1px solid var(--rule);
   border-radius: 999px;
   background: none;
+  font-size: 0.9375rem;
   cursor: pointer;
   transition:
     background-color 220ms ease,
@@ -72,37 +65,32 @@
 
 .cta {
   justify-self: start;
-  min-height: 64px;
-  padding-inline: 34px;
-  font-size: 1.0625rem;
-}
-
-.cta svg {
-  width: 22px;
-  height: 22px;
+  margin-top: clamp(4px, 1vh, 12px);
 }
 
 /* Cartão escuro com endereço, horários e mapa. */
 .visit {
-  grid-column: 8 / -1;
   overflow: hidden;
-  border-radius: clamp(20px, 2.2vw, 36px);
+  border-radius: var(--radius);
   background: var(--ink);
   color: var(--pearl);
 }
 
 .info {
   display: grid;
-  gap: 20px;
-  padding: clamp(24px, 3vw, 44px);
+  gap: clamp(12px, 2vh, 18px);
+  padding: clamp(20px, 2.4vw, 32px);
 }
 
 .info h3 {
-  font-size: clamp(1.5rem, 2.2vw, 2rem);
-  letter-spacing: -0.035em;
+  font-family: var(--font-serif);
+  font-size: clamp(1.5rem, min(2.2vw, 4vh), 2rem);
+  font-weight: 400;
+  letter-spacing: -0.01em;
 }
 
 .info address {
+  font-size: 0.9375rem;
   font-style: normal;
   line-height: 1.5;
   color: rgb(244 241 236 / 0.72);
@@ -116,9 +104,9 @@
   display: flex;
   justify-content: space-between;
   gap: 16px;
-  padding-block: 12px;
+  padding-block: 9px;
   border-bottom: 1px solid rgb(244 241 236 / 0.16);
-  font-size: 0.9375rem;
+  font-size: 0.875rem;
 }
 
 .hours li span:last-child {
@@ -129,6 +117,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px 24px;
+  font-size: 0.9375rem;
 }
 
 .links a {
@@ -140,7 +129,7 @@
 
 .map {
   width: 100%;
-  height: clamp(220px, 24vw, 320px);
+  height: clamp(150px, 26vh, 260px);
   border: 0;
   /* O mapa entra no clima do cartão: dessaturado e escurecido. */
   filter: grayscale(1) contrast(1.05) brightness(0.92);
@@ -148,15 +137,15 @@
 
 @media (max-width: 899px) {
   .grid {
-    row-gap: 48px;
-  }
-
-  .form,
-  .visit {
-    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 40px;
   }
 
   .cta {
     justify-self: stretch;
+  }
+
+  .map {
+    height: 220px;
   }
 }

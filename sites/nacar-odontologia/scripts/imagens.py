@@ -18,22 +18,19 @@ OUT = ROOT / "src" / "assets" / "images"
 
 # saída: (arquivo de origem, largura máxima)
 PHOTOS = {
-    "hero-consulta": ("hero-consulta.jpg", 2400),
-    "hero-sorriso": ("hero-sorriso.jpg", 1600),
-    "trat-lentes": ("trat-lentes.jpg", 1600),
+    "hero-sorriso": ("hero-sorriso.jpg", 2800),
+    "manifesto-retrato": ("sorriso-3.jpg", 1400),
+    "trat-lentes": ("sorriso-1.jpg", 1600),
     "trat-implantes": ("equipe-atendimento.jpg", 1600),
     "trat-alinhadores": ("trat-alinhadores.jpg", 1600),
-    "trat-clareamento": ("sorriso-1.jpg", 1600),
+    "trat-clareamento": ("sorriso-5.jpg", 1600),
     "trat-checkup": ("espaco-tecnologia.jpg", 1600),
-    "sorriso-1": ("sorriso-2.jpg", 1400),
-    "sorriso-2": ("sorriso-3.jpg", 1200),
-    "sorriso-3": ("sorriso-4.jpg", 1200),
-    "sorriso-4": ("sorriso-5.jpg", 1400),
+    "processo-consultorio": ("espaco-consultorio.jpg", 1800),
     "espaco-recepcao": ("espaco-recepcao.jpg", 2000),
     "espaco-lounge": ("espaco-lounge.jpg", 2000),
     "espaco-consultorio": ("espaco-consultorio.jpg", 2000),
     "espaco-espera": ("espaco-espera.jpg", 2000),
-    "depoimentos-sorriso": ("depoimentos-sorriso.jpg", 1800),
+    "equipe-consulta": ("hero-consulta.jpg", 1800),
 }
 
 # Par da cortina: recorte (fração da foto) e caixa dos dentes dentro da foto.

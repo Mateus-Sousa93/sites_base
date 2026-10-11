@@ -10,6 +10,7 @@ mkdirSync(out, { recursive: true });
 
 const targets = [
   { name: "desktop", viewport: { width: 1440, height: 900 } },
+  { name: "notebook", viewport: { width: 1366, height: 768 } },
   { name: "phone", viewport: { width: 390, height: 844 }, isMobile: true, hasTouch: true, deviceScaleFactor: 2 },
 ];
 

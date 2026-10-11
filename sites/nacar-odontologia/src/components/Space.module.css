@@ -1,38 +1,38 @@
 .section {
-  padding-block: clamp(96px, 11vw, 176px);
   border-top: 1px solid var(--rule);
   overflow: hidden;
 }
 
 .head {
   display: grid;
-  grid-template-columns: repeat(12, minmax(0, 1fr));
-  column-gap: clamp(16px, 2vw, 32px);
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  column-gap: clamp(32px, 6vw, 112px);
   align-items: end;
 }
 
 .heading {
-  grid-column: 1 / span 7;
   display: grid;
-  gap: clamp(18px, 2vw, 28px);
+  gap: clamp(12px, 2vh, 20px);
 }
 
 .side {
-  grid-column: 9 / -1;
-  display: grid;
-  gap: clamp(20px, 2.4vw, 32px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
 }
 
 .controls {
   display: flex;
-  gap: 10px;
+  flex: none;
+  gap: 8px;
 }
 
 .controls button {
   display: grid;
   place-items: center;
-  width: 56px;
-  height: 56px;
+  width: 46px;
+  height: 46px;
   border: 1px solid var(--rule);
   border-radius: 50%;
   background: none;
@@ -50,8 +50,8 @@
 }
 
 .controls svg {
-  width: 20px;
-  height: 20px;
+  width: 18px;
+  height: 18px;
   fill: none;
   stroke: currentColor;
   stroke-width: 1.6;
@@ -60,11 +60,12 @@
 }
 
 /* Trilho: rolagem horizontal nativa com encaixe. A primeira foto alinha com a
-   margem do site e as seguintes sangram para a direita. */
+   margem do site e as seguintes sangram para a direita. A altura das fotos
+   segue a da janela, para a seção caber em uma tela. */
 .track {
   display: flex;
-  column-gap: clamp(12px, 2vw, 32px);
-  margin-top: clamp(48px, 6vw, 88px);
+  column-gap: clamp(10px, 1.4vw, 20px);
+  margin-top: clamp(20px, 4vh, 44px);
   padding-inline: max(var(--gutter), calc((100vw - var(--max)) / 2));
   overflow-x: auto;
   overscroll-behavior-x: contain;
@@ -79,16 +80,16 @@
 
 .track li {
   flex: none;
-  width: min(62vw, 980px);
   scroll-snap-align: start;
 }
 
 .shot {
-  --reveal-radius: clamp(20px, 2.2vw, 36px);
+  --reveal-radius: var(--radius);
   position: relative;
+  height: min(50vh, 500px);
   aspect-ratio: 16 / 10;
   overflow: hidden;
-  border-radius: clamp(20px, 2.2vw, 36px);
+  border-radius: var(--radius);
   background: var(--pearl-deep);
 }
 
@@ -103,9 +104,9 @@
 
 .track p {
   display: flex;
-  gap: 14px;
-  margin-top: 16px;
-  font-size: 0.9375rem;
+  gap: 12px;
+  margin-top: 12px;
+  font-size: 0.875rem;
 }
 
 .track p span {
@@ -114,24 +115,18 @@
 }
 
 @media (max-width: 899px) {
-  .heading,
-  .side {
-    grid-column: 1 / -1;
-  }
-
-  .side {
-    margin-top: 24px;
+  .head {
+    grid-template-columns: minmax(0, 1fr);
+    row-gap: 16px;
   }
 
   .controls {
     display: none;
   }
 
-  .track li {
-    width: 84vw;
-  }
-
   .shot {
+    width: 84vw;
+    height: auto;
     aspect-ratio: 4 / 3;
   }
 }

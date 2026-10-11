@@ -20,7 +20,7 @@ export function Space() {
   }
 
   return (
-    <section id="clinica" data-theme="pearl" className={styles.section} aria-labelledby="clinica-title">
+    <section id="clinica" data-theme="pearl" className={`screen ${styles.section}`} aria-labelledby="clinica-title">
       <div className={`container ${styles.head}`}>
         <Reveal className={styles.heading}>
           <p className="eyebrow">{label}</p>

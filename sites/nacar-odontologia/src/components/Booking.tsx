@@ -50,9 +50,9 @@ export function Booking() {
   const embedUrl = `https://maps.google.com/maps?q=${query}&z=15&output=embed`;
 
   return (
-    <section id="agendar" data-theme="pearl" className={styles.section} aria-labelledby="agendar-title">
+    <section id="agendar" data-theme="pearl" className="screen" aria-labelledby="agendar-title">
       <div className={`container ${styles.grid}`}>
-        <div className={styles.form}>
+        <div>
           <Reveal className={styles.head}>
             <p className="eyebrow">{label}</p>
             <h2 id="agendar-title" className="section-title">

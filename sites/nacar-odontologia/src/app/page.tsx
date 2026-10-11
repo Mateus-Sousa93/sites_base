@@ -1,6 +1,5 @@
 import { Booking } from "@/components/Booking";
 import { Manifesto } from "@/components/Manifesto";
-import { Marquee } from "@/components/Marquee";
 import { MobileBookingBar } from "@/components/MobileBookingBar";
 import { Process } from "@/components/Process";
 import { Results } from "@/components/Results";
@@ -18,7 +17,6 @@ export default function Home() {
       <SiteHeader />
       <main id="conteudo">
         <Hero />
-        <Marquee />
         <Manifesto />
         <Treatments />
         <Results />

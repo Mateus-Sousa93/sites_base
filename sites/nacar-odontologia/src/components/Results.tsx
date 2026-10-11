@@ -6,9 +6,9 @@ import { site } from "@/content/site";
 import { Reveal } from "@/motion/Reveal";
 import styles from "./Results.module.css";
 
-// Antes e depois com cortina arrastável, e uma galeria de sorrisos.
+// Antes e depois com cortina arrastável.
 export function Results() {
-  const { label, title, titleAccent, lead, caseLabel, before, after, note, gallery } = site.results;
+  const { label, title, titleAccent, lead, caseLabel, before, after, note } = site.results;
   const [position, setPosition] = useState(50);
   const compareRef = useRef<HTMLDivElement>(null);
   const touched = useRef(false);
@@ -42,7 +42,7 @@ export function Results() {
   }, []);
 
   return (
-    <section id="resultados" data-theme="ink" className={styles.section} aria-labelledby="resultados-title">
+    <section id="resultados" data-theme="ink" className="screen" aria-labelledby="resultados-title">
       <div className={`container ${styles.grid}`}>
         <Reveal className={styles.head}>
           <p className="eyebrow">{label}</p>
@@ -50,6 +50,10 @@ export function Results() {
             {title} <em>{titleAccent}</em>
           </h2>
           <p className="section-lead">{lead}</p>
+          <div className={styles.caption}>
+            <p className={styles.caseLabel}>{caseLabel}</p>
+            <p className={styles.note}>{note}</p>
+          </div>
         </Reveal>
 
         <Reveal kind="image" className={styles.compareWrap}>
@@ -81,22 +85,6 @@ export function Results() {
             />
           </div>
         </Reveal>
-
-        <div className={styles.caption}>
-          <p className={styles.caseLabel}>{caseLabel}</p>
-          <p className={styles.note}>{note}</p>
-        </div>
-
-        <ul className={styles.gallery}>
-          {gallery.map((item, index) => (
-            <li key={item.caption}>
-              <Reveal kind="image" delay={index * 90} className={styles.shot}>
-                <Image src={item.photo.src} alt={item.photo.alt} fill placeholder="blur" sizes="(max-width: 899px) 50vw, 24vw" />
-              </Reveal>
-              <p>{item.caption}</p>
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   );

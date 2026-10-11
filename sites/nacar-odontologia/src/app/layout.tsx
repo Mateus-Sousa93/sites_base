@@ -10,11 +10,11 @@ const hostGrotesk = Host_Grotesk({
   display: "swap",
 });
 
-// Serifa itálica: só em palavras-chave.
+// Serifa dos títulos: regular, com itálico nas palavras-chave.
 const instrumentSerif = Instrument_Serif({
   subsets: ["latin"],
   weight: "400",
-  style: "italic",
+  style: ["normal", "italic"],
   variable: "--font-instrument-serif",
   display: "swap",
 });
@@ -34,7 +34,7 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f4f1ec",
+  themeColor: "#0b1020",
 };
 
 const structuredData = {

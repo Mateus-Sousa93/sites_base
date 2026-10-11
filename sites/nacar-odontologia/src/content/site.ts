@@ -8,24 +8,22 @@ import type { StaticImageData } from "next/image";
 
 import casoAntes from "@/assets/images/caso-antes.jpg";
 import casoDepois from "@/assets/images/caso-depois.jpg";
-import depoimentosSorriso from "@/assets/images/depoimentos-sorriso.jpg";
+import equipeConsulta from "@/assets/images/equipe-consulta.jpg";
 import espacoConsultorio from "@/assets/images/espaco-consultorio.jpg";
 import espacoEspera from "@/assets/images/espaco-espera.jpg";
 import espacoLounge from "@/assets/images/espaco-lounge.jpg";
 import espacoRecepcao from "@/assets/images/espaco-recepcao.jpg";
-import heroConsulta from "@/assets/images/hero-consulta.jpg";
 import heroSorriso from "@/assets/images/hero-sorriso.jpg";
-import sorriso1 from "@/assets/images/sorriso-1.jpg";
-import sorriso2 from "@/assets/images/sorriso-2.jpg";
-import sorriso3 from "@/assets/images/sorriso-3.jpg";
-import sorriso4 from "@/assets/images/sorriso-4.jpg";
+import manifestoRetrato from "@/assets/images/manifesto-retrato.jpg";
+import processoConsultorio from "@/assets/images/processo-consultorio.jpg";
 import tratAlinhadores from "@/assets/images/trat-alinhadores.jpg";
 import tratCheckup from "@/assets/images/trat-checkup.jpg";
 import tratClareamento from "@/assets/images/trat-clareamento.jpg";
 import tratImplantes from "@/assets/images/trat-implantes.jpg";
 import tratLentes from "@/assets/images/trat-lentes.jpg";
 
-export type Photo = { src: StaticImageData; alt: string };
+// `focus` é o ponto da foto que não pode ser cortado (valor de object-position).
+export type Photo = { src: StaticImageData; alt: string; focus?: string };
 
 export type OpeningHours = {
   days: string;
@@ -105,32 +103,21 @@ export const site = {
   },
 
   hero: {
-    eyebrow: "Odontologia estética e reabilitação oral",
-    // O título quebra em linhas fixas; a última vai em serifa itálica.
+    eyebrow: "Odontologia estética e reabilitação oral · Uberlândia",
+    // O título quebra em linhas fixas; a última vai em itálico.
     titleLines: ["O sorriso que", "você sempre"],
     titleAccent: "quis ver.",
     lead: "Lentes de contato dental, implantes e alinhadores, planejados com você. Antes de começar, você vê o resultado na tela.",
     cta: "Agendar avaliação",
     secondary: { label: "Conhecer a clínica", href: "#clinica" },
-    photo: { src: heroConsulta, alt: "Dentista conversando com uma paciente sorridente em um consultório claro e moderno" },
-    inset: { src: heroSorriso, alt: "Mulher sorrindo sob a luz do fim da tarde" },
-    rating: { value: "4,9", label: "640 avaliações no Google" },
-    trust: [
-      { value: "12 anos", label: "de clínica em Uberlândia" },
-      { value: "3.200", label: "sorrisos planejados" },
-      { value: "60 min", label: "de primeira consulta" },
-    ] satisfies Stat[],
+    photo: { src: heroSorriso, alt: "Mulher sorrindo sob a luz do fim da tarde" },
+    // Linhas discretas no pé da abertura.
+    meta: [
+      { label: "Google", value: "4,9 em 640 avaliações" },
+      { label: "Atendimento", value: "Seg a sex, 8h às 19h" },
+      { label: "Endereço", value: "Av. Rondon Pacheco, 4600" },
+    ],
   },
-
-  // Faixa que corre abaixo do hero.
-  marquee: [
-    "Lentes de contato dental",
-    "Implantes",
-    "Alinhadores invisíveis",
-    "Clareamento",
-    "Reabilitação oral",
-    "Check-up digital",
-  ],
 
   manifesto: {
     label: "Como trabalhamos",
@@ -138,6 +125,7 @@ export const site = {
     text: "Antes de tocar em um dente, escutamos, examinamos e desenhamos o resultado em 3D. Você vê o sorriso pronto na tela e só então decide começar.",
     // Trecho do texto que vai em serifa itálica.
     accent: "só então",
+    photo: { src: manifestoRetrato, alt: "Retrato em preto e branco de uma mulher sorrindo" },
     stats: [
       { value: "60 min", label: "de primeira consulta, sem pressa" },
       { value: "2", label: "consultas até a prévia do seu sorriso" },
@@ -156,7 +144,7 @@ export const site = {
         summary:
           "Lâminas de porcelana com 0,3 mm que corrigem cor, formato e pequenos desalinhamentos, com desgaste mínimo do dente.",
         facts: ["2 a 3 consultas", "Prévia do resultado antes de começar"],
-        photo: { src: tratLentes, alt: "Close de um sorriso com dentes claros e alinhados" },
+        photo: { src: tratLentes, alt: "Mulher de cabelos cacheados sorrindo", focus: "82% 30%" },
       },
       {
         id: "implantes",
@@ -180,7 +168,7 @@ export const site = {
         summary:
           "Clareamento supervisionado, em consultório ou em casa com moldeiras sob medida, com controle de sensibilidade do início ao fim.",
         facts: ["1 a 3 sessões", "Resultado já na primeira semana"],
-        photo: { src: tratClareamento, alt: "Mulher de cabelos cacheados sorrindo" },
+        photo: { src: tratClareamento, alt: "Mulher de olhos claros sorrindo para a câmera", focus: "50% 30%" },
       },
       {
         id: "checkup",
@@ -202,12 +190,6 @@ export const site = {
     before: { src: casoAntes, alt: "Sorriso antes do tratamento, com dentes amarelados" },
     after: { src: casoDepois, alt: "O mesmo sorriso depois do tratamento, com dentes claros" },
     note: "Comparação ilustrativa, criada para este site demonstrativo.",
-    gallery: [
-      { photo: { src: sorriso1, alt: "Retrato em preto e branco de uma mulher sorrindo de olhos fechados" }, caption: "Lentes de contato" },
-      { photo: { src: sorriso2, alt: "Retrato em preto e branco de uma mulher sorrindo" }, caption: "Alinhadores" },
-      { photo: { src: sorriso3, alt: "Mulher sorrindo, olhando para baixo" }, caption: "Clareamento" },
-      { photo: { src: sorriso4, alt: "Mulher de olhos claros sorrindo para a câmera" }, caption: "Reabilitação" },
-    ],
   },
 
   process: {
@@ -215,8 +197,7 @@ export const site = {
     title: "Você vê antes",
     titleAccent: "de decidir.",
     lead: "O planejamento digital tira a dúvida do caminho. Nada começa sem a sua aprovação.",
-    photo: { src: espacoConsultorio, alt: "Consultório odontológico claro, com cadeira e equipamentos modernos" },
-    card: { value: "100%", label: "dos tratamentos estéticos com prévia aprovada pelo paciente" },
+    photo: { src: processoConsultorio, alt: "Consultório odontológico claro, com cadeira e equipamentos modernos" },
     steps: [
       { title: "Escuta e exame", text: "Uma hora de conversa, fotos e escaneamento 3D. Sem pressa e sem molde de massa." },
       { title: "Desenho do sorriso", text: "Projetamos o resultado no computador a partir do seu rosto e da sua mordida." },
@@ -243,6 +224,7 @@ export const site = {
     title: "Quem cuida",
     titleAccent: "de você.",
     lead: "Dois especialistas que atendem juntos os casos de reabilitação, do planejamento à última consulta.",
+    photo: { src: equipeConsulta, alt: "Dentista conversando com uma paciente no consultório" },
     people: [
       {
         name: "Dra. Marina Teles",
@@ -266,7 +248,6 @@ export const site = {
     title: "Quem passou",
     titleAccent: "por aqui.",
     rating: { value: "4,9", label: "em 640 avaliações no Google" },
-    photo: { src: depoimentosSorriso, alt: "Close em preto e branco de um sorriso" },
     items: [
       {
         quote: "Vi meu sorriso pronto na tela antes de decidir. Não teve surpresa nenhuma: ficou igual ao que aprovei.",
