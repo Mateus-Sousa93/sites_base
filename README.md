@@ -11,6 +11,7 @@ como um projeto separado na Vercel.
 | Almeida & Rocha Contabilidade | `sites/almeida-rocha` | pronto |
 | Pedal Forte (bikes e elétricas) | `sites/pedal-forte` | pronto |
 | Cultura das Ruas (sneakers e streetwear) | `sites/cultura-das-ruas` | pronto |
+| Nácar Odontologia (clínica odontológica) | `sites/nacar-odontologia` | pronto |
 
 ## Rodar um site localmente
 
